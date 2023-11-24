@@ -755,7 +755,7 @@ Transform:
   m_GameObject: {fileID: 865608854}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -10, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -774,6 +774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   segmentPrefab: {fileID: 1413100591243945257, guid: 50da3029fca23a14cb35c3d666d4f81d, type: 3}
+  initialSize: 4
 --- !u!1 &910468295
 GameObject:
   m_ObjectHideFlags: 0

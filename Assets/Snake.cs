@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class Snake : MonoBehaviour
 {
-    private Vector2 _direction = Vector2.right;
+    private Vector2 _direction = Vector2.up;
     // a Transform is like an object
     private List<Transform> _segments = new List<Transform>();
     public Transform segmentPrefab;
     public int initialSize = 4;
 
+    private Vector3 _startPosition;
+
     private void Start()
     // initialise snake with head
     {
+        // initialise start position with inspector value
+        // ensure rounding to int
+        _startPosition = new Vector3(
+            Mathf.Round(this.transform.position.x),
+            Mathf.Round(this.transform.position.y),
+            Mathf.Round(this.transform.position.z)
+        );
         ResetState();
     }
 
@@ -71,7 +80,7 @@ public class Snake : MonoBehaviour
             _segments.Add(Instantiate(this.segmentPrefab));
         }
 
-        this.transform.position = Vector3.zero;
+        this.transform.position = _startPosition;
     }
 
     // actions when collision occurs
