@@ -617,7 +617,7 @@ GameObject:
   - component: {fileID: 865608859}
   m_Layer: 0
   m_Name: Snake
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -773,6 +773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b76e8cea762dec24bb795e64a0c5fcdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  segmentPrefab: {fileID: 1413100591243945257, guid: 50da3029fca23a14cb35c3d666d4f81d, type: 3}
 --- !u!1 &910468295
 GameObject:
   m_ObjectHideFlags: 0
@@ -864,7 +865,7 @@ GameObject:
   - component: {fileID: 1021994267}
   m_Layer: 0
   m_Name: Food
-  m_TagString: Untagged
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
