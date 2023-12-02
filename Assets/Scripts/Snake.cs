@@ -10,25 +10,25 @@ public class Snake : MonoBehaviour
     public int initialSize = 4; // snake length at start
     public float speed = 20f;
     public float speedMultiplier = 1f;
+    public Vector2Int direction = Vector2Int.up;
 
     // manage calculation update rate
     private float deltaTime;
     private float nextUpdate;
 
-    private Vector2Int direction = Vector2Int.up;
+
     private Vector2Int input = Vector2Int.zero; 
     private List<Transform> segments = new List<Transform>();
-    private Vector3 startPosition; // starting snake position
+    private Vector2 startPosition; // starting snake position
 
     private void Start()
     // initialise snake with head
     {
         // initialise start position with inspector value
         // ensure rounding to int
-        startPosition = new Vector3(
-            Mathf.Round(this.transform.position.x),
-            Mathf.Round(this.transform.position.y),
-            Mathf.Round(this.transform.position.z)
+        startPosition = new Vector2(
+            Mathf.RoundToInt(transform.position.x),
+            Mathf.RoundToInt(transform.position.y)
         );
         
         deltaTime = 1f / (speed * speedMultiplier);
@@ -83,11 +83,9 @@ public class Snake : MonoBehaviour
 
         // TODO test changing position to 2D vector
         // // 3D vector for position, even in 2D game
-        this.transform.position = new Vector3(
-            Mathf.Round(this.transform.position.x) + direction.x,
-            Mathf.Round(this.transform.position.y) + direction.y,
-            0.0f
-        );
+        int x = Mathf.RoundToInt(transform.position.x) + direction.x;
+        int y = Mathf.RoundToInt(transform.position.y) + direction.y;
+        transform.position = new Vector2(x, y);
 
          // Set the next update time based on the speed
         nextUpdate = Time.time + deltaTime;       
@@ -109,13 +107,13 @@ public class Snake : MonoBehaviour
         }
 
         segments.Clear();
-        segments.Add(this.transform);
+        segments.Add(transform);
 
         for (int i = 1; i < this.initialSize; i++) {
-            segments.Add(Instantiate(this.segmentPrefab));
+            segments.Add(Instantiate(segmentPrefab));
         }
 
-        this.transform.position = startPosition;
+        transform.position = startPosition;
     }
 
     // actions when collision occurs
