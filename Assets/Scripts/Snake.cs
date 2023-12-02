@@ -75,26 +75,29 @@ public class Snake : MonoBehaviour
         if (input != Vector2Int.zero) {
             direction = input;
         }
-  
-        // move each segment from tail to head
-        for (int i = segments.Count - 1; i > 0; i--){
-            segments[i].position = segments[i - 1].position;
-        }
 
-        // TODO test changing position to 2D vector
-        // // 3D vector for position, even in 2D game
-        int x = Mathf.RoundToInt(transform.position.x) + direction.x;
-        int y = Mathf.RoundToInt(transform.position.y) + direction.y;
-        transform.position = new Vector2(x, y);
+        Move(direction);
 
          // Set the next update time based on the speed
         nextUpdate = Time.time + deltaTime;       
     }   
 
+    private void Move(Vector2Int direction)
+    {
+        // move each segment from tail to head
+        for (int i = segments.Count - 1; i > 0; i--){
+            segments[i].position = segments[i - 1].position;
+        }
+
+        int x = Mathf.RoundToInt(transform.position.x) + direction.x;
+        int y = Mathf.RoundToInt(transform.position.y) + direction.y;
+        transform.position = new Vector2(x, y);
+    }
+
     private void Grow()
     {
         // clone prefab asset
-        Transform segment = Instantiate(this.segmentPrefab);
+        Transform segment = Instantiate(segmentPrefab);
         // set position of new segment to the current snake tail
         segment.position = segments[segments.Count - 1].position;
         segments.Add(segment);
@@ -109,7 +112,7 @@ public class Snake : MonoBehaviour
         segments.Clear();
         segments.Add(transform);
 
-        for (int i = 1; i < this.initialSize; i++) {
+        for (int i = 1; i < initialSize; i++) {
             segments.Add(Instantiate(segmentPrefab));
         }
 
