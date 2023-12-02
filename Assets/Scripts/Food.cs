@@ -1,10 +1,12 @@
 using UnityEngine;
 
+// Food requires the GameObject to have a BoxCollider2D component
+[RequireComponent(typeof(BoxCollider2D))]
 public class Food : MonoBehaviour
 {
-    // Start is called before the first frame update
     public BoxCollider2D gridArea;
 
+    // Start is called before the first frame update
     private void Start()
     {
         RandomizePosition();
