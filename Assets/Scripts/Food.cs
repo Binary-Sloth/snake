@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 // Food requires the GameObject to have a BoxCollider2D component
@@ -6,20 +8,47 @@ public class Food : MonoBehaviour
 {
     public BoxCollider2D gridArea;
 
-    // Start is called before the first frame update
-    private void Start()
+    private Vector2Int loc;
+
+    private UnityEngine.Object[] snakes;
+
+    private void Awake()
+    // Awake is called once on scene initialisation
     {
-        RandomizePosition();
+       snakes = FindObjectsOfType<Snake>();
     }
 
-    private void RandomizePosition()
+    private void Start()
     {
-        Bounds bounds = this.gridArea.bounds;
+        UpdatePosition();
+    }
 
-        float x = Random.Range(bounds.min.x, bounds.max.x);
-        float y = Random.Range(bounds.min.y, bounds.max.y);
+    private Vector2Int RandomizePosition()
+    // generate a proposed new location
+    {
+        Bounds bounds = gridArea.bounds;
 
-        this.transform.position = new Vector3(Mathf.Round(x), Mathf.Round(y), 0.0f);
+        int x = Mathf.RoundToInt(UnityEngine.Random.Range(bounds.min.x, bounds.max.x));
+        int y = Mathf.RoundToInt(UnityEngine.Random.Range(bounds.min.y, bounds.max.y));
+
+        return new Vector2Int(x, y);
+
+    }
+
+    private void UpdatePosition()
+    {
+        Vector2Int new_loc = RandomizePosition();
+
+        // Prevent the food from spawning on the snakes
+        foreach (Snake snake in snakes) {
+            while (snake.Occupies(new_loc.x, new_loc.y))
+            {
+                new_loc = RandomizePosition();
+                Debug.Log("recalculated position");
+            };
+        }
+
+        transform.position = new Vector2(new_loc.x, new_loc.y);
 
     }
 
@@ -27,7 +56,7 @@ public class Food : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player") {
-            RandomizePosition();
+            UpdatePosition();
         }
     }
 }

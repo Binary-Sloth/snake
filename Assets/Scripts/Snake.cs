@@ -92,15 +92,7 @@ public class Snake : MonoBehaviour
         int x = Mathf.RoundToInt(transform.position.x) + direction.x;
         int y = Mathf.RoundToInt(transform.position.y) + direction.y;
         transform.position = new Vector2(x, y);
-    }
 
-    private void Grow()
-    {
-        // clone prefab asset
-        Transform segment = Instantiate(segmentPrefab);
-        // set position of new segment to the current snake tail
-        segment.position = segments[segments.Count - 1].position;
-        segments.Add(segment);
     }
 
     private void ResetState()
@@ -119,6 +111,20 @@ public class Snake : MonoBehaviour
         transform.position = startPosition;
     }
 
+    public bool Occupies(int x, int y)
+    // check if a position is occupied by a snake segment
+    {
+        foreach (Transform segment in segments)
+        {
+            if (Mathf.RoundToInt(segment.position.x) == x &&
+                Mathf.RoundToInt(segment.position.y) == y) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     // actions when collision occurs
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -129,6 +135,15 @@ public class Snake : MonoBehaviour
         if (other.tag == "Obstacle") {
             ResetState();
         }
+    }
+
+    private void Grow()
+    {
+        // clone prefab asset
+        Transform segment = Instantiate(segmentPrefab);
+        // set position of new segment to the current snake tail
+        segment.position = segments[segments.Count - 1].position;
+        segments.Add(segment);
     }
 
 }
