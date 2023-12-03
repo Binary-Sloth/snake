@@ -616,7 +616,7 @@ GameObject:
   - component: {fileID: 865608855}
   - component: {fileID: 865608859}
   m_Layer: 0
-  m_Name: Snake
+  m_Name: Snake_a
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -770,11 +770,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 865608854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b76e8cea762dec24bb795e64a0c5fcdf, type: 3}
+  m_Script: {fileID: 11500000, guid: a7875fde63672f0449ad468930a9d085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  segmentPrefab: {fileID: 1413100591243945257, guid: 50da3029fca23a14cb35c3d666d4f81d, type: 3}
-  initialSize: 400
+  segmentPrefab: {fileID: 5386490566848389282, guid: c7865e3fd26eee042977808a6a676ef1, type: 3}
+  initialSize: 4
   speed: 10
   speedMultiplier: 1
   direction: {x: 0, y: 1}
@@ -1141,28 +1141,14 @@ GameObject:
   - component: {fileID: 1843467493}
   - component: {fileID: 1843467492}
   - component: {fileID: 1843467491}
-  - component: {fileID: 1843467490}
+  - component: {fileID: 1843467495}
   m_Layer: 0
-  m_Name: Snake_2
+  m_Name: Snake_b
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1843467490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1843467489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31d441a0b1751b843b8d471092852bce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  segmentPrefab: {fileID: 4341232715883592871, guid: d66428cc0ceed2b4eba33542c6999b8a, type: 3}
-  initialSize: 4
 --- !u!61 &1843467491
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1302,6 +1288,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1843467495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843467489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f822d05a007911145a029568fad19cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  segmentPrefab: {fileID: 5166023552087368304, guid: d7ed56d48bcc4294980d9386e73cc868, type: 3}
+  initialSize: 4
+  speed: 10
+  speedMultiplier: 1
+  direction: {x: 0, y: 1}
 --- !u!1 &2033996015
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,11 +4,11 @@ using UnityEngine;
 
 // Snake requires the GameObject to have a BoxCollider2D component
 [RequireComponent(typeof(BoxCollider2D))]
-public class Snake : MonoBehaviour
+public abstract class Snake : MonoBehaviour
 {
     public Transform segmentPrefab; // snake body segments
     public int initialSize = 4; // snake length at start
-    public float speed = 20f;
+    public float speed = 10f;
     public float speedMultiplier = 1f;
     public Vector2Int direction = Vector2Int.up;
 
@@ -17,7 +17,7 @@ public class Snake : MonoBehaviour
     private float nextUpdate;
 
 
-    private Vector2Int input = Vector2Int.zero; 
+    protected Vector2Int input = Vector2Int.zero; 
     private List<Transform> segments = new List<Transform>();
     private Vector2 startPosition; // starting snake position
 
@@ -40,6 +40,12 @@ public class Snake : MonoBehaviour
     private void Update()
     // Update() is called every frame
     {
+        input = GetInput();
+    }
+
+    protected virtual Vector2Int GetInput() 
+    // Enable different derived classes to get input differently
+    {
         // only allow y movement if snake is pointing in x direction
         if (direction.x != 0) 
         {
@@ -58,6 +64,8 @@ public class Snake : MonoBehaviour
                 input = Vector2Int.right;
             }
         }
+
+        return input;
     }
 
     private void FixedUpdate()
