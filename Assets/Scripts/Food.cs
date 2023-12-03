@@ -12,6 +12,8 @@ public class Food : MonoBehaviour
 
     private UnityEngine.Object[] snakes;
 
+    public int points = 10;
+
     private void Awake()
     // Awake is called once on scene initialisation
     {
@@ -44,7 +46,6 @@ public class Food : MonoBehaviour
             while (snake.Occupies(new_loc.x, new_loc.y))
             {
                 new_loc = RandomizePosition();
-                Debug.Log("recalculated position");
             };
         }
 

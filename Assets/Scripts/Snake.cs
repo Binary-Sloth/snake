@@ -1,4 +1,4 @@
-
+using System.Collections;
 using System.Collections.Generic; // necessary to define list
 using UnityEngine;
 
@@ -7,19 +7,26 @@ using UnityEngine;
 public abstract class Snake : MonoBehaviour
 {
     public Transform segmentPrefab; // snake body segments
+    protected Color myColor;
     public int initialSize = 4; // snake length at start
     public float speed = 10f;
     public float speedMultiplier = 1f;
     public Vector2Int direction = Vector2Int.up;
 
+    private Transform mySegment; // create a copy of the base segment prefab
+
     // manage calculation update rate
     private float deltaTime;
     private float nextUpdate;
 
+    public int pointCounter;
+    public int pointPenalty = 100;
 
     protected Vector2Int input = Vector2Int.zero; 
     private List<Transform> segments = new List<Transform>();
     private Vector2 startPosition; // starting snake position
+
+    private bool isInvulnerable = false; // iframe management
 
     private void Start()
     // initialise snake with head
@@ -34,6 +41,10 @@ public abstract class Snake : MonoBehaviour
         deltaTime = 1f / (speed * speedMultiplier);
         nextUpdate = Time.time + deltaTime;
         
+        pointCounter = 0;
+
+        myColor = GetComponent<SpriteRenderer>().color;
+
         ResetState();
     }
 
@@ -110,10 +121,12 @@ public abstract class Snake : MonoBehaviour
         }
 
         segments.Clear();
-        segments.Add(transform);
+        segments.Add(transform); // add snake head
 
         for (int i = 1; i < initialSize; i++) {
-            segments.Add(Instantiate(segmentPrefab));
+            mySegment = Instantiate(segmentPrefab, startPosition, Quaternion.identity);
+            mySegment.gameObject.GetComponent<SpriteRenderer>().color = myColor;
+            segments.Add(mySegment);
         }
 
         transform.position = startPosition;
@@ -133,22 +146,48 @@ public abstract class Snake : MonoBehaviour
         return false;
     }
 
-    // actions when collision occurs
+
+
     private void OnTriggerEnter2D(Collider2D other)
+    // actions when collision occurs
     {
         if (other.tag == "Food") {
             Grow();
+            pointCounter += other.gameObject.GetComponent<Food>().points;
+            // Debug.Log(this.name, pointCounter);
         }
 
         if (other.tag == "Obstacle") {
             ResetState();
+            Color otherColor = other.gameObject.GetComponent<SpriteRenderer>().color;
+            if (otherColor != myColor && isInvulnerable == false)
+            {
+                pointCounter -= pointPenalty;
+                Debug.Log(other.gameObject.name + " " + pointCounter);
+                StartCoroutine(OnInvulnerable());
+            }
+
         }
+    }
+
+    private IEnumerator OnInvulnerable()
+    // coroutine to set period of invulnerability after collision
+    {
+        int penalty = pointPenalty; 
+        isInvulnerable = true;
+        pointPenalty = 0;
+
+        // set invulnerability duration
+        yield return new WaitForSeconds(0.5f); 
+
+        pointPenalty = penalty;
+        isInvulnerable = false;
     }
 
     private void Grow()
     {
         // clone prefab asset
-        Transform segment = Instantiate(segmentPrefab);
+        Transform segment = Instantiate(mySegment);
         // set position of new segment to the current snake tail
         segment.position = segments[segments.Count - 1].position;
         segments.Add(segment);
