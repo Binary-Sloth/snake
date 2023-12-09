@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic; // necessary to define list
 using UnityEngine;
+using TMPro;
 
 // Snake requires the GameObject to have a BoxCollider2D component
 [RequireComponent(typeof(BoxCollider2D))]
@@ -21,6 +22,7 @@ public abstract class Snake : MonoBehaviour
 
     public int pointCounter;
     public int pointPenalty = 100;
+    public TextMeshProUGUI scoreUI;
 
     protected Vector2Int input = Vector2Int.zero; 
     private List<Transform> segments = new List<Transform>();
@@ -154,7 +156,6 @@ public abstract class Snake : MonoBehaviour
         if (other.tag == "Food") {
             Grow();
             pointCounter += other.gameObject.GetComponent<Food>().points;
-            // Debug.Log(this.name, pointCounter);
         }
 
         if (other.tag == "Obstacle") {
@@ -163,11 +164,12 @@ public abstract class Snake : MonoBehaviour
             if (otherColor != myColor && isInvulnerable == false)
             {
                 pointCounter -= pointPenalty;
-                Debug.Log(other.gameObject.name + " " + pointCounter);
                 StartCoroutine(OnInvulnerable());
             }
 
         }
+
+        scoreUI.text = pointCounter.ToString();
     }
 
     private IEnumerator OnInvulnerable()
