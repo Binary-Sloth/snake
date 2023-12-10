@@ -2,33 +2,44 @@ using System.Collections;
 using System.Collections.Generic; // necessary to define list
 using UnityEngine;
 using TMPro;
+using UnityEngine.Rendering;
 
 // Snake requires the GameObject to have a BoxCollider2D component
 [RequireComponent(typeof(BoxCollider2D))]
 public abstract class Snake : MonoBehaviour
 {
-    public Transform segmentPrefab; // snake body segments
-    protected Color myColor;
-    public int initialSize = 4; // snake length at start
-    public float speed = 10f;
+    // snake position and movement variables
+    public float speed = 8f;
     public float speedMultiplier = 1f;
     public Vector2Int direction = Vector2Int.up;
+    protected Vector2Int input = Vector2Int.zero; 
+    private Vector2 startPosition; // starting snake position
 
+    // snake segment variables
+    public Transform segmentPrefab; // snake body segments
+    public int initialSize = 4; // snake length at start
+    protected Color myColor;
     private Transform mySegment; // create a copy of the base segment prefab
+    private List<Transform> segments = new List<Transform>();
 
     // manage calculation update rate
     private float deltaTime;
     private float nextUpdate;
 
-    public int pointCounter;
+    // track score
+    public int pointCounter = 0;
     public int pointPenalty = 100;
+    public int lifeCounter = 3; // max number of lives
     public TextMeshProUGUI scoreUI;
+    public TextMeshProUGUI lifeUI;
 
-    protected Vector2Int input = Vector2Int.zero; 
-    private List<Transform> segments = new List<Transform>();
-    private Vector2 startPosition; // starting snake position
+     // manage invincibility frames
+    private bool isInvulnerable = false;
 
-    private bool isInvulnerable = false; // iframe management
+    private void Awake()
+    {
+        lifeUI.text = lifeCounter.ToString();
+    }
 
     private void Start()
     // initialise snake with head
@@ -42,8 +53,6 @@ public abstract class Snake : MonoBehaviour
         
         deltaTime = 1f / (speed * speedMultiplier);
         nextUpdate = Time.time + deltaTime;
-        
-        pointCounter = 0;
 
         myColor = GetComponent<SpriteRenderer>().color;
 
@@ -116,6 +125,7 @@ public abstract class Snake : MonoBehaviour
 
     }
 
+
     private void ResetState()
     {
         for (int i = 1; i < segments.Count; i++) {
@@ -164,6 +174,9 @@ public abstract class Snake : MonoBehaviour
             if (otherColor != myColor && isInvulnerable == false)
             {
                 pointCounter -= pointPenalty;
+                lifeCounter -= 1;
+                lifeUI.text = lifeCounter.ToString();
+                
                 StartCoroutine(OnInvulnerable());
             }
 
