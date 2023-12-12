@@ -3,6 +3,7 @@ using System.Collections.Generic; // necessary to define list
 using UnityEngine;
 using TMPro;
 using UnityEngine.Rendering;
+using Unity.VisualScripting;
 
 // Snake requires the GameObject to have a BoxCollider2D component
 [RequireComponent(typeof(BoxCollider2D))]
@@ -33,8 +34,9 @@ public abstract class Snake : MonoBehaviour
     public TextMeshProUGUI scoreUI;
     public TextMeshProUGUI lifeUI;
 
-     // manage invincibility frames
+     // manage invincibility frames and GameController
     private bool isInvulnerable = false;
+    public GameController GameController;
 
     private void Awake()
     {
@@ -176,12 +178,16 @@ public abstract class Snake : MonoBehaviour
                 pointCounter -= pointPenalty;
                 lifeCounter -= 1;
                 lifeUI.text = lifeCounter.ToString();
-                
-                StartCoroutine(OnInvulnerable());
+
+                if (lifeCounter == 0) {
+                    Destroy(this.GameObject());
+                    GameController.GameOver();
+                }
+                else {
+                    StartCoroutine(OnInvulnerable());
+                }
             }
-
         }
-
         scoreUI.text = pointCounter.ToString();
     }
 
