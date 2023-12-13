@@ -32,6 +32,7 @@ public abstract class Snake : MonoBehaviour
     public int lifeCounter = 3; // max number of lives
     public TextMeshProUGUI scoreUI;
     public TextMeshProUGUI lifeUI;
+    public string screenName = "Green";
 
      // manage invincibility frames and GameController
     private bool isInvulnerable = false;
