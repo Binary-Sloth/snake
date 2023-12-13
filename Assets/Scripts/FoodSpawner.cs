@@ -22,10 +22,15 @@ public class FoodSpawner : MonoBehaviour
     {
         while (foodCount > 0) {
             Vector2 randomPosition = NewPosition();
+            RandomiseFood();
             Instantiate(foodPrefab, randomPosition, Quaternion.identity);
             foodCount -= 1;
         }
 
+    }
+
+    protected virtual void RandomiseFood() {
+        // placeholder for inheritance
     }
 
     private Vector2Int RandomPosition()
