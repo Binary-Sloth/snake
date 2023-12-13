@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic; // necessary to define list
 using UnityEngine;
 using TMPro;
-using UnityEngine.Rendering;
 using Unity.VisualScripting;
 
 // Snake requires the GameObject to have a BoxCollider2D component
