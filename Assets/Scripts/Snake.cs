@@ -33,6 +33,7 @@ public abstract class Snake : MonoBehaviour
     public TextMeshProUGUI scoreUI;
     public TextMeshProUGUI lifeUI;
     public string screenName = "Green";
+    public bool gameActive = true; // set to false if game is over
 
      // manage invincibility frames and GameController
     private bool isInvulnerable = false;
@@ -165,30 +166,32 @@ public abstract class Snake : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     // actions when collision occurs
     {
-        if (other.tag == "Food") {
-            Grow();
-            pointCounter += other.gameObject.GetComponent<Food>().points;
-        }
+        if (gameActive) {
+            if (other.tag == "Food") {
+                Grow();
+                pointCounter += other.gameObject.GetComponent<Food>().points;
+            }
 
-        if (other.tag == "Obstacle") {
-            ResetState();
-            Color otherColor = other.gameObject.GetComponent<SpriteRenderer>().color;
-            if (otherColor != myColor && isInvulnerable == false)
-            {
-                pointCounter -= pointPenalty;
-                lifeCounter -= 1;
-                lifeUI.text = lifeCounter.ToString();
+            if (other.tag == "Obstacle") {
+                ResetState();
+                Color otherColor = other.gameObject.GetComponent<SpriteRenderer>().color;
+                if (otherColor != myColor && isInvulnerable == false)
+                {
+                    pointCounter -= pointPenalty;
+                    lifeCounter -= 1;
+                    lifeUI.text = lifeCounter.ToString();
 
-                if (lifeCounter == 0) {
-                    Destroy(this.GameObject());
-                    GameController.GameOver();
-                }
-                else {
-                    StartCoroutine(OnInvulnerable());
+                    if (lifeCounter == 0) {
+                        Destroy(this.GameObject());
+                        GameController.GameOver();
+                    }
+                    else {
+                        StartCoroutine(OnInvulnerable());
+                    }
                 }
             }
+            scoreUI.text = pointCounter.ToString();
         }
-        scoreUI.text = pointCounter.ToString();
     }
 
     private IEnumerator OnInvulnerable()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameOverScreen : MonoBehaviour
 {
@@ -15,16 +16,23 @@ public class GameOverScreen : MonoBehaviour
         snakes = FindObjectsOfType<Snake>();
 
         foreach (Snake snake in snakes) {
-            Debug.Log(snake);
+            snake.gameActive = false;
             if (snake.lifeCounter > 0) {
                 string winner = snake.screenName;
-                int score = snake.pointCounter;
-                Debug.Log(winner);
-                Debug.Log(score);
-                winnerText.text = winner + " snake wins with " + score.ToString() + " points!";
+                string score = snake.pointCounter.ToString();
+                Color snakeColor = snake.GetComponent<SpriteRenderer>().color;
+                winnerText.color = snakeColor;
+                winnerText.text = $"{winner} snake wins with {score} points!";
             }
+            Destroy(snake);
+
         }
         
 
     }
+
+    public void RestartButton() {
+        SceneManager.LoadScene("Snake");
+    }
+
 }
