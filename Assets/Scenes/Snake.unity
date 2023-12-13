@@ -541,7 +541,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 86941266}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 415749830}
+        m_TargetAssemblyTypeName: GameOverScreen, Assembly-CSharp
+        m_MethodName: MenuButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &86941266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,7 +792,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 46.175, y: -201}
+  m_AnchoredPosition: {x: 46.174988, y: -201}
   m_SizeDelta: {x: 80, y: 25}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &313650076
@@ -1638,7 +1650,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 46.18, y: -114.69}
+  m_AnchoredPosition: {x: 46.179993, y: -114.69}
   m_SizeDelta: {x: 80, y: 25}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &848778196
@@ -2853,7 +2865,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 126.18, y: -201}
+  m_AnchoredPosition: {x: 126.17999, y: -201}
   m_SizeDelta: {x: 80, y: 25}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1710922327

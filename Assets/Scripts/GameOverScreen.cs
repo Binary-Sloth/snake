@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameOverScreen : MonoBehaviour
@@ -33,6 +30,10 @@ public class GameOverScreen : MonoBehaviour
 
     public void RestartButton() {
         SceneManager.LoadScene("Snake");
+    }
+
+    public void MenuButton() {
+        SceneManager.LoadScene("MainMenu");
     }
 
 }
