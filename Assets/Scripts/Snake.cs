@@ -28,7 +28,7 @@ public abstract class Snake : MonoBehaviour
 
     // track score
     public int pointCounter = 0;
-    public int pointPenalty = 100;
+    public int pointPenalty = 0;
     public int lifeCounter = 3; // max number of lives
     public TextMeshProUGUI scoreUI;
     public TextMeshProUGUI lifeUI;
@@ -168,7 +168,7 @@ public abstract class Snake : MonoBehaviour
     {
         if (gameActive) {
             if (other.tag == "Food") {
-                Grow();
+                Grow(other);
                 pointCounter += other.gameObject.GetComponent<Food>().points;
             }
 
@@ -208,7 +208,8 @@ public abstract class Snake : MonoBehaviour
         isInvulnerable = false;
     }
 
-    private void Grow()
+    protected virtual void Grow(Collider2D food)
+    // food is an argument for derived classes
     {
         // clone prefab asset
         Transform segment = Instantiate(mySegment);

@@ -24,7 +24,6 @@ public class GameOverScreen : MonoBehaviour
                 Color snakeColor = snake.GetComponent<SpriteRenderer>().color;
                 winnerText.color = snakeColor;
             }
-
             Destroy(snake);
         }
 

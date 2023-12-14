@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class FoodLetterSpawner : FoodSpawner
 {
-    protected override void RandomiseFood()
+    public override void RandomiseFood()
     {
         foodPrefab.GetComponentInChildren<TextMesh>().text = GetRandomLetter();
     }
-    
+
     private string GetRandomLetter()
     {
         string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

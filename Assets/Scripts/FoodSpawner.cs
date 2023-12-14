@@ -29,7 +29,7 @@ public class FoodSpawner : MonoBehaviour
 
     }
 
-    protected virtual void RandomiseFood() {
+    public virtual void RandomiseFood() {
         // placeholder for inheritance
     }
 

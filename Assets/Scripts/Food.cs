@@ -7,15 +7,15 @@ using UnityEngine;
 public class Food : MonoBehaviour
 {
     public int points = 10;
-    private FoodSpawner foodSpawner;
+    protected FoodSpawner foodSpawner;
 
-    private void Start()
+    protected virtual void Start()
     {
         foodSpawner = FindObjectOfType<FoodSpawner>();
     }
 
     // action when collision occurs
-    private void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player")) {
             transform.position = foodSpawner.NewPosition();
