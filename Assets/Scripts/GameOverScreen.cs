@@ -12,21 +12,26 @@ public class GameOverScreen : MonoBehaviour
         gameObject.SetActive(true);
         snakes = FindObjectsOfType<Snake>();
 
+        string winner = null;
+        string score = null;
+        int maxPoints = 0;
+
         foreach (Snake snake in snakes) {
             snake.gameActive = false;
-            if (snake.lifeCounter > 0) {
-                string winner = snake.screenName;
-                string score = snake.pointCounter.ToString();
+            if (snake.pointCounter > maxPoints) {
+                winner = snake.screenName;
+                score = snake.pointCounter.ToString();
                 Color snakeColor = snake.GetComponent<SpriteRenderer>().color;
                 winnerText.color = snakeColor;
-                winnerText.text = $"{winner} snake wins with {score} points!";
             }
-            Destroy(snake);
 
+            Destroy(snake);
         }
-        
+
+        winnerText.text = $"{winner} snake wins with {score} points!";
 
     }
+    
 
     public void RestartButton() {
         SceneManager.LoadScene("Snake");
