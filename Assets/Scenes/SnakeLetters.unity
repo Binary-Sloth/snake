@@ -1759,7 +1759,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 864512294}
-  - component: {fileID: 864512293}
+  - component: {fileID: 864512295}
   m_Layer: 0
   m_Name: Food Letter Spawner
   m_TagString: Untagged
@@ -1767,21 +1767,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &864512293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 864512292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea4c2d10817f17f4095d315dcc6d45c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foodCount: 5
-  foodPrefab: {fileID: 7226423928792103765, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-  gridArea: {fileID: 910468296}
 --- !u!4 &864512294
 Transform:
   m_ObjectHideFlags: 0
@@ -1797,6 +1782,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &864512295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864512292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c554eb793f38c4a49b6b4474ceda1485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodCount: 5
+  foodPrefab: {fileID: 7226423928792103765, guid: ce047b45051adc84b849f94da8d37048, type: 3}
+  gridArea: {fileID: 910468296}
 --- !u!1 &865608854
 GameObject:
   m_ObjectHideFlags: 0
@@ -3589,10 +3589,6 @@ PrefabInstance:
     - target: {fileID: 7847229427395085385, guid: ce047b45051adc84b849f94da8d37048, type: 3}
       propertyPath: m_Name
       value: FoodLetter
-      objectReference: {fileID: 0}
-    - target: {fileID: 7847229427395085385, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

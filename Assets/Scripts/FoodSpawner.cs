@@ -22,19 +22,13 @@ public class FoodSpawner : MonoBehaviour
     {
         while (foodCount > 0) {
             Vector2 randomPosition = NewPosition();
-            RandomiseFood();
             Instantiate(foodPrefab, randomPosition, Quaternion.identity);
             foodCount -= 1;
         }
-
-    }
-
-    public virtual void RandomiseFood() {
-        // placeholder for inheritance
     }
 
     private Vector2Int RandomPosition()
-    // generate a proposed new location in the game grid
+    // generate a proposed new location in th e game grid
     {
         int x = Mathf.RoundToInt(UnityEngine.Random.Range(bounds.min.x, bounds.max.x));
         int y = Mathf.RoundToInt(UnityEngine.Random.Range(bounds.min.y, bounds.max.y));

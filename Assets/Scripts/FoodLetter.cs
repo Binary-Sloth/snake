@@ -5,19 +5,24 @@ using UnityEngine;
 
 public class FoodLetter : Food
 {
+    public TextMesh textMesh;
+
     protected override void Start()
     {
-        foodSpawner = FindObjectOfType<FoodLetterSpawner>();
-
+        base.Start();
+        textMesh = this.GetComponentInChildren<TextMesh>();
+        GetRandomLetter();
     }
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         base.OnTriggerEnter2D(other);
+        GetRandomLetter();
+    }
 
-        foodSpawner.RandomiseFood();
-        this.GetComponentInChildren<TextMesh>().text = foodSpawner.foodPrefab.GetComponentInChildren<TextMesh>().text;
-
-
+    private void GetRandomLetter()
+    {
+        char randomLetter = (char)Random.Range('A', 'Z' + 1);
+        textMesh.text = randomLetter.ToString();
     }
 }
