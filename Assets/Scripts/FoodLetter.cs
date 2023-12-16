@@ -14,9 +14,8 @@ public class FoodLetter : Food
         GetRandomLetter();
     }
 
-    protected override void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerExit2D()
     {
-        base.OnTriggerEnter2D(other);
         GetRandomLetter();
     }
 
