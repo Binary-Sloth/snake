@@ -25,7 +25,7 @@ public class SnakeLetters : Snake
         if (Input.GetKeyDown(KeyCode.Space) && currentWord != "") {
             
             if (CheckDictionary(currentWord)) {
-                wordBank.Add(currentWord);
+                wordBank.Prepend(currentWord);
                 Debug.Log($"Banked: {currentWord}");
             }
             
