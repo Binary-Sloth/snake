@@ -542,7 +542,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 415749830}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameOverScreen, Assembly-CSharp
         m_MethodName: MenuButton
         m_Mode: 1
@@ -1115,10 +1115,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 415749826}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d760e1731a0d8b46969801efc3fcfb9, type: 3}
+  m_Script: {fileID: 11500000, guid: d32b5df281960f745b1e8f709a0cc84c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentScene: SnakeLetters
   winnerText: {fileID: 792458448}
+  score: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1269,7 +1271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f40d9d96bfb09c44a0428185691390c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameOverScreen: {fileID: 415749830}
+  GameOverScreen: {fileID: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -2225,7 +2227,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 415749830}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameOverScreen, Assembly-CSharp
         m_MethodName: RestartButton
         m_Mode: 1
@@ -2693,6 +2695,8 @@ MonoBehaviour:
   screenName: Green
   gameActive: 1
   GameController: {fileID: 519420033}
+  currentWordUI: {fileID: 781659670}
+  wordBankUI: {fileID: 1760821245}
 --- !u!61 &1356212145
 BoxCollider2D:
   m_ObjectHideFlags: 0
