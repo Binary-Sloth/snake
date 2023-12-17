@@ -15,11 +15,18 @@ public class SnakeLetters : Snake
     public TextMeshProUGUI wordBankUI;
     public int bonusPoints;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        wordBankUI.text = wordBank;
+    }
+
     protected override void ResetState()
     {
         base.ResetState();
-        currentWordUI.text = "";
-        wordBankUI.text = wordBank;
+        // also reset currentWord and bonusPoints
+        currentWord = "";
+        currentWordUI.text = currentWord;
         bonusPoints = 0;
     }
 
@@ -31,34 +38,49 @@ public class SnakeLetters : Snake
         currentWord += letter;
         bonusPoints += food.gameObject.GetComponent<FoodLetter>().bonusPoints;
         currentWordUI.text = currentWord;
+        
+        // Display letter in snake
+        segments[segments.Count - 1].gameObject.GetComponentInChildren<TextMesh>().text = letter;
     }
 
     protected override Vector2Int GetInput()
     // 'Bank' current word if the user hits spacebar
     {
         if (Input.GetKeyDown(KeyCode.Space) && currentWord != "") {
-            
-            if (CheckDictionary(currentWord)) {
-                // bank word and add bonus points
-                wordBank = $"{currentWord} \r\n{wordBank}";
-                pointCounter += bonusPoints;
-                scoreUI.text = pointCounter.ToString();
-                wordBankUI.text = wordBank;
-                Debug.Log($"Banked: {currentWord}");
-
-            }
-            
-            else {
-                Debug.Log($"{currentWord} is not in the dictionary");
-            }
-
-            // reset bonus points
-            bonusPoints = 0;
-
-            currentWord = "";
-            currentWordUI.text = currentWord;
+            BankWord();
         }
         return base.GetInput();
+    }
+
+    private void BankWord() 
+    {
+        if (CheckDictionary(currentWord)) {
+            // bank word and add bonus points only if it exists in dictionary
+            wordBank = $"{currentWord} \r\n{wordBank}";
+            pointCounter += bonusPoints;
+            scoreUI.text = pointCounter.ToString();
+            wordBankUI.text = wordBank;
+            Debug.Log($"Banked: {currentWord}");
+
+        }
+        
+        else {
+            Debug.Log($"{currentWord} is not in the dictionary");
+        }
+
+        // clear letters in snake
+        for (int i = 0; i < currentWord.Length; i++) {
+            segments[segments.Count -1 - i].gameObject.GetComponentInChildren<TextMesh>().text = "";
+        }
+
+        // reset bonusPoints counter
+        bonusPoints = 0;
+        // reset currentWord
+        currentWord = "";
+        currentWordUI.text = currentWord;
+
+
+
     }
 
     public bool CheckDictionary(string testWord)

@@ -20,7 +20,7 @@ public abstract class Snake : MonoBehaviour
     public int initialSize = 4; // snake length at start
     protected Color myColor;
     private Transform mySegment; // create a copy of the base segment prefab
-    private List<Transform> segments = new List<Transform>();
+    protected List<Transform> segments = new List<Transform>();
 
     // manage calculation update rate
     private float deltaTime;
@@ -39,7 +39,7 @@ public abstract class Snake : MonoBehaviour
     private bool isInvulnerable = false;
     public GameController GameController;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         lifeUI.text = lifeCounter.ToString();
     }
@@ -54,8 +54,7 @@ public abstract class Snake : MonoBehaviour
             Mathf.RoundToInt(transform.position.y)
         );
         
-        deltaTime = 1f / (speed * speedMultiplier);
-        nextUpdate = Time.time + deltaTime;
+        SetDeltaTime();
 
         myColor = GetComponent<SpriteRenderer>().color;
 
@@ -68,6 +67,11 @@ public abstract class Snake : MonoBehaviour
         input = GetInput();
     }
 
+    protected void SetDeltaTime() {
+        deltaTime = 1f / (speed * speedMultiplier);
+        nextUpdate = Time.time + deltaTime;
+    }
+    
     protected virtual Vector2Int GetInput() 
     // Enable different derived classes to get input differently
     {

@@ -592,6 +592,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 86941263}
   m_CullTransparentMesh: 1
+--- !u!1 &101727056 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2609300385017154848, guid: ce047b45051adc84b849f94da8d37048, type: 3}
+  m_PrefabInstance: {fileID: 5267548635487891522}
+  m_PrefabAsset: {fileID: 0}
+--- !u!210 &101727060
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101727056}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
+  m_SortAtRoot: 0
 --- !u!1 &132743166
 GameObject:
   m_ObjectHideFlags: 0
@@ -2686,7 +2703,7 @@ MonoBehaviour:
   speed: 8
   speedMultiplier: 1
   direction: {x: 0, y: 1}
-  segmentPrefab: {fileID: 5386490566848389282, guid: c7865e3fd26eee042977808a6a676ef1, type: 3}
+  segmentPrefab: {fileID: 5686830124446701421, guid: 665ad4f12c769ca4d8071ccc729a907e, type: 3}
   initialSize: 4
   pointCounter: 0
   pointPenalty: 0
@@ -2698,6 +2715,7 @@ MonoBehaviour:
   GameController: {fileID: 519420033}
   currentWordUI: {fileID: 781659670}
   wordBankUI: {fileID: 1760821245}
+  bonusPoints: 0
 --- !u!61 &1356212145
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3235,6 +3253,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 234373456}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &994625987236287779
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5686830124446701421, guid: 665ad4f12c769ca4d8071ccc729a907e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686830124446701421, guid: 665ad4f12c769ca4d8071ccc729a907e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686830124446701421, guid: 665ad4f12c769ca4d8071ccc729a907e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686830124446701421, guid: 665ad4f12c769ca4d8071ccc729a907e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686830124446701421, guid: 665ad4f12c769ca4d8071ccc729a907e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686830124446701421, guid: 665ad4f12c769ca4d8071ccc729a907e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686830124446701421, guid: 665ad4f12c769ca4d8071ccc729a907e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686830124446701421, guid: 665ad4f12c769ca4d8071ccc729a907e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686830124446701421, guid: 665ad4f12c769ca4d8071ccc729a907e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686830124446701421, guid: 665ad4f12c769ca4d8071ccc729a907e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8782930425715589670, guid: 665ad4f12c769ca4d8071ccc729a907e, type: 3}
+      propertyPath: m_Name
+      value: SnakeLetterSegment
+      objectReference: {fileID: 0}
+    - target: {fileID: 8782930425715589670, guid: 665ad4f12c769ca4d8071ccc729a907e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 665ad4f12c769ca4d8071ccc729a907e, type: 3}
 --- !u!1001 &5267548635487891522
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3302,7 +3381,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2609300385017154848, guid: ce047b45051adc84b849f94da8d37048, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 101727060}
   m_SourcePrefab: {fileID: 100100000, guid: ce047b45051adc84b849f94da8d37048, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -3316,3 +3398,4 @@ SceneRoots:
   - {fileID: 5267548635487891522}
   - {fileID: 5895854}
   - {fileID: 1117990757}
+  - {fileID: 994625987236287779}
