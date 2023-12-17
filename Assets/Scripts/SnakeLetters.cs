@@ -13,12 +13,14 @@ public class SnakeLetters : Snake
 
     public TextMeshProUGUI currentWordUI;
     public TextMeshProUGUI wordBankUI;
+    public int bonusPoints;
 
-    protected override void Start()
+    protected override void ResetState()
     {
-        base.Start();
-        currentWordUI.text = currentWord;
+        base.ResetState();
+        currentWordUI.text = "";
         wordBankUI.text = wordBank;
+        bonusPoints = 0;
     }
 
     protected override void Grow(Collider2D food)
@@ -27,6 +29,7 @@ public class SnakeLetters : Snake
         base.Grow(food);
         string letter = food.gameObject.GetComponentInChildren<TextMesh>().text;
         currentWord += letter;
+        bonusPoints += food.gameObject.GetComponent<FoodLetter>().bonusPoints;
         currentWordUI.text = currentWord;
     }
 
@@ -36,14 +39,21 @@ public class SnakeLetters : Snake
         if (Input.GetKeyDown(KeyCode.Space) && currentWord != "") {
             
             if (CheckDictionary(currentWord)) {
+                // bank word and add bonus points
                 wordBank = $"{currentWord} \r\n{wordBank}";
+                pointCounter += bonusPoints;
+                scoreUI.text = pointCounter.ToString();
                 wordBankUI.text = wordBank;
                 Debug.Log($"Banked: {currentWord}");
+
             }
             
             else {
                 Debug.Log($"{currentWord} is not in the dictionary");
             }
+
+            // reset bonus points
+            bonusPoints = 0;
 
             currentWord = "";
             currentWordUI.text = currentWord;
@@ -72,5 +82,4 @@ public class SnakeLetters : Snake
 
         return false;
     }
-
 }

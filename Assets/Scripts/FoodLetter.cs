@@ -10,61 +10,48 @@ using System.Linq;
 public class FoodLetter : Food
 {
     public TextMesh textMesh;
+    string letterDataPath = "Assets/LetterValues.csv";
+    public int bonusPoints;
 
     protected override void Start()
     {
         base.Start();
         textMesh = this.GetComponentInChildren<TextMesh>();
-        GetRandomLetter();
+        // GetRandomLetter();
+        GetRandomCapitalLetterFromCSV(letterDataPath);
     }
 
     private void OnTriggerExit2D()
     {
-        GetRandomLetter();
+        // GetRandomLetter();
+        GetRandomCapitalLetterFromCSV(letterDataPath);
     }
 
-    private void GetRandomLetter()
-    {
-        char randomLetter = (char)Random.Range('A', 'Z' + 1);
-        textMesh.text = randomLetter.ToString();
-    }
-
-    private char GetRandomCapitalLetter()
-    // from Bing
-    {
-        string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        float[] probabilities = {0.1f, 0.2f, 0.3f, 0.05f, 0.05f, 0.1f, 0.1f, 0.05f, 0.05f, 0.05f};
-        float randomValue = Random.value;
-        float cumulativeProbability = 0.0f;
-        for (int i = 0; i < letters.Length; i++)
-        {
-            cumulativeProbability += probabilities[i];
-            if (randomValue <= cumulativeProbability)
-            {
-                return letters[i];
-            }
-        }
-        return letters[letters.Length - 1];
-    }
-
-    private char GetRandomCapitalLetterFromCSV(string filePath)
-    // Bing
+    private void GetRandomCapitalLetterFromCSV(string filePath)
+    // csv column 0 = letter, column 1 = probability, column 2 = points
     {
         string[] lines = File.ReadAllLines(filePath);
+        lines = lines.Skip(1).ToArray(); // skip header
         string[] letters = lines.Select(line => line.Split(',')[0]).ToArray();
         float[] probabilities = lines.Select(line => float.Parse(line.Split(',')[1])).ToArray();
-        float randomValue = UnityEngine.Random.value;
+        int[] letterPoints = lines.Select(line => int.Parse(line.Split(',')[2])).ToArray();
+
+        float randomValue = Random.value;
         float cumulativeProbability = 0.0f;
+
         for (int i = 0; i < letters.Length; i++)
         {
             cumulativeProbability += probabilities[i];
             if (randomValue <= cumulativeProbability)
             {
-                return letters[i][0];
+                Debug.Log($"chosen letter: {letters[i][0]}");
+                textMesh.text = letters[i][0].ToString();
+                bonusPoints = letterPoints[i];
+                return;
             }
         }
-        return letters[letters.Length - 1][0];
+        // last letter
+        textMesh.text = letters[letters.Length - 1][0].ToString();
+        bonusPoints = letterPoints[letters.Length - 1];
     }
-
-
 }

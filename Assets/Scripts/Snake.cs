@@ -44,7 +44,7 @@ public abstract class Snake : MonoBehaviour
         lifeUI.text = lifeCounter.ToString();
     }
 
-    protected virtual void Start()
+    private void Start()
     // initialise snake with head
     {
         // initialise start position with inspector value
@@ -129,7 +129,7 @@ public abstract class Snake : MonoBehaviour
     }
 
 
-    private void ResetState()
+    protected virtual void ResetState()
     {
         for (int i = 1; i < segments.Count; i++) {
             Destroy(segments[i].gameObject);
