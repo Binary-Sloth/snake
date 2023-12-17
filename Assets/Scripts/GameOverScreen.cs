@@ -8,7 +8,7 @@ public class GameOverScreen : MonoBehaviour
     public TextMeshProUGUI winnerText;
 
     public int score = 0;
-    string winnerName ;
+    protected string winnerName ;
 
     public virtual void Setup() {
         gameObject.SetActive(true);
@@ -32,7 +32,6 @@ public class GameOverScreen : MonoBehaviour
         score = snake.pointCounter;
         Color snakeColor = snake.GetComponent<SpriteRenderer>().color;
         winnerText.color = snakeColor;
-        Destroy(snake);
     }
 
 }

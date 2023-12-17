@@ -11,4 +11,8 @@ public class MainMenu : MonoBehaviour
     public void StartClassic() {
         SceneManager.LoadScene("Snake");
     }
+
+    public void StartLetters() {
+        SceneManager.LoadScene("SnakeLetters");
+    }
 }

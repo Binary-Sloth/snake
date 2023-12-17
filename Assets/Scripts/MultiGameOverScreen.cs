@@ -9,25 +9,31 @@ public class MultiGameOverScreen : GameOverScreen
     public override void Setup() {
         base.Setup();
 
+        bool draw = false;
+
         snakes = FindObjectsOfType<Snake>();
 
-        string winner = null;
-        string score = null;
-        int maxPoints = -100000;
+
+        int maxPoints = -100000; // arbitrary low number
 
         foreach (Snake snake in snakes) {
             snake.gameActive = false;
             if (snake.pointCounter > maxPoints) {
-                winner = snake.screenName;
-                score = snake.pointCounter.ToString();
-                Color snakeColor = snake.GetComponent<SpriteRenderer>().color;
-                winnerText.color = snakeColor;
+                maxPoints = snake.pointCounter;
+                processSnake(snake);
+            }
+            else if (snake.pointCounter == maxPoints) {
+                draw = true;
             }
             Destroy(snake);
         }
 
-        winnerText.text = $"{winner} snake wins with {score} points!";
-
+        if (draw) {
+            winnerText.text = $"It's a draw! {score} points each!";
+        }
+        else {
+            winnerText.text = $"{winnerName} snake wins with {score} points!";
+        }
     }
 
 }

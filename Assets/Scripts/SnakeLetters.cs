@@ -14,6 +14,13 @@ public class SnakeLetters : Snake
     public TextMeshProUGUI currentWordUI;
     public TextMeshProUGUI wordBankUI;
 
+    protected override void Start()
+    {
+        base.Start();
+        currentWordUI.text = currentWord;
+        wordBankUI.text = wordBank;
+    }
+
     protected override void Grow(Collider2D food)
     // add food's letter to current word when it is 'eaten'
     {

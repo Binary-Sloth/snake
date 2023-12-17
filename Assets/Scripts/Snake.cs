@@ -44,7 +44,7 @@ public abstract class Snake : MonoBehaviour
         lifeUI.text = lifeCounter.ToString();
     }
 
-    private void Start()
+    protected virtual void Start()
     // initialise snake with head
     {
         // initialise start position with inspector value

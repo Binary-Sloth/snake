@@ -1,10 +1,8 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SoloGameOverScreen : GameOverScreen
 {
-    Snake snake;
+    public Snake snake;
 
     public override void Setup() {
         base.Setup();
