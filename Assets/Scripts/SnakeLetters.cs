@@ -15,10 +15,13 @@ public class SnakeLetters : Snake
     public TextMeshProUGUI wordBankUI;
     public int bonusPoints;
 
+    private FoodSpawner brickSpawner;
+
     protected override void Awake()
     {
         base.Awake();
         wordBankUI.text = wordBank;
+        brickSpawner = GameObject.FindGameObjectWithTag("BrickSpawner").GetComponent<FoodSpawner>();
     }
 
     protected override void ResetState()
@@ -60,12 +63,12 @@ public class SnakeLetters : Snake
             pointCounter += bonusPoints;
             scoreUI.text = pointCounter.ToString();
             wordBankUI.text = wordBank;
-            Debug.Log($"Banked: {currentWord}");
 
         }
         
         else {
-            Debug.Log($"{currentWord} is not in the dictionary");
+            // spawn bricks if word does not exist in dictionary
+            brickSpawner.SpawnFood(foodCount: currentWord.Length);
         }
 
         // clear letters in snake
@@ -94,7 +97,6 @@ public class SnakeLetters : Snake
             foreach (var line in lines)
             {
                 var words = line.Split(' ');
-
                 if (words.Contains(testWord))
                 {
                     return true;

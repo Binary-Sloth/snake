@@ -7,13 +7,10 @@ public class FoodSpawner : MonoBehaviour
     public Food foodPrefab;
     public GridArea gridArea;
 
-    private UnityEngine.Object[] snakes;
-
     private void Awake()
     // Awake is called once on scene initialisation
     {
-       snakes = FindObjectsOfType<Snake>();
-       gridArea = FindObjectOfType<GridArea>();
+       gridArea = FindAnyObjectByType<GridArea>();
     }
 
     public void SpawnFood(int foodCount)
