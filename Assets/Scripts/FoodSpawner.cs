@@ -4,7 +4,6 @@ public class FoodSpawner : MonoBehaviour
 // Spawns food at a random location in the grid area.
 // Must be invoked after snakes have spawned (to avoid spawning on top of them)
 {
-    public int foodCount = 5;
     public Food foodPrefab;
     public GridArea gridArea;
 
@@ -17,7 +16,7 @@ public class FoodSpawner : MonoBehaviour
        gridArea = FindObjectOfType<GridArea>();
     }
 
-    private void Start()
+    public void SpawnFood(int foodCount)
     {
         while (foodCount > 0) {
             Vector2 randomPosition = NewPosition();

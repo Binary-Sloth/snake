@@ -2050,7 +2050,7 @@ GameObject:
   - component: {fileID: 864512295}
   m_Layer: 0
   m_Name: Food Letter Spawner
-  m_TagString: Untagged
+  m_TagString: LetterSpawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2082,9 +2082,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c554eb793f38c4a49b6b4474ceda1485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodCount: 10
   foodPrefab: {fileID: 7226423928792103765, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-  gridArea: {fileID: 910468296}
+  gridArea: {fileID: 910468298}
 --- !u!1 &910468295
 GameObject:
   m_ObjectHideFlags: 0
@@ -2717,6 +2716,7 @@ MonoBehaviour:
   speed: 8
   speedMultiplier: 1
   direction: {x: 0, y: 1}
+  startPosition: {x: 0, y: 0}
   segmentPrefab: {fileID: 5686830124446701421, guid: 665ad4f12c769ca4d8071ccc729a907e, type: 3}
   initialSize: 5
   pointCounter: 0

@@ -13,7 +13,7 @@ public abstract class Snake : MonoBehaviour
     public float speedMultiplier = 1f;
     public Vector2Int direction = Vector2Int.up;
     protected Vector2Int input = Vector2Int.zero; 
-    private Vector2 startPosition; // starting snake position
+    public Vector2 startPosition; // starting snake position
 
     // snake segment variables
     public Transform segmentPrefab; // snake body segments
@@ -126,8 +126,9 @@ public abstract class Snake : MonoBehaviour
     {
         // add tail location to gridArea.openPositions list, unless snake is growing
         if (segments[^1].position != segments[^2].position) {
-            gridArea.AddOpenPosition((Vector2)segments[^1].position);
+            gridArea.AddOpenPosition(segments[^1].position);
         }
+
         // move each segment from tail to head
         for (int i = segments.Count - 1; i > 0; i--){
             segments[i].position = segments[i - 1].position;
@@ -166,9 +167,8 @@ public abstract class Snake : MonoBehaviour
         }
 
         transform.position = startPosition;
-        if (gridArea.openPositions.Exists(p => p.x == startPosition.x && p.y == startPosition.y)) {
-            gridArea.RemoveOpenPosition(startPosition);
-        }
+
+        gridArea.RemoveOpenPosition(startPosition);
     }
 
     public bool Occupies(int x, int y)
