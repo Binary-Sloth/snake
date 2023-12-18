@@ -1536,7 +1536,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -263.718, y: 0}
+  m_AnchoredPosition: {x: -263.71802, y: 0}
   m_SizeDelta: {x: 160, y: 45.497}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &686009626
@@ -1670,7 +1670,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -177.39}
+  m_AnchoredPosition: {x: 0, y: -177.39001}
   m_SizeDelta: {x: 160, y: 35.39}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &781659670
@@ -2095,6 +2095,7 @@ GameObject:
   m_Component:
   - component: {fileID: 910468297}
   - component: {fileID: 910468296}
+  - component: {fileID: 910468298}
   m_Layer: 0
   m_Name: GridArea
   m_TagString: Untagged
@@ -2162,6 +2163,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 234373456}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &910468298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910468295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 658ee26ed2bc7d94da0c5c5c8f96b4a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openPositions: []
 --- !u!1 &979350506
 GameObject:
   m_ObjectHideFlags: 0
@@ -2704,7 +2718,7 @@ MonoBehaviour:
   speedMultiplier: 1
   direction: {x: 0, y: 1}
   segmentPrefab: {fileID: 5686830124446701421, guid: 665ad4f12c769ca4d8071ccc729a907e, type: 3}
-  initialSize: 4
+  initialSize: 5
   pointCounter: 0
   pointPenalty: 0
   lifeCounter: 3
@@ -2712,7 +2726,6 @@ MonoBehaviour:
   lifeUI: {fileID: 313650076}
   screenName: Green
   gameActive: 1
-  GameController: {fileID: 519420033}
   currentWordUI: {fileID: 781659670}
   wordBankUI: {fileID: 1760821245}
   bonusPoints: 0

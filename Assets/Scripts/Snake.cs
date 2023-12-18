@@ -37,11 +37,14 @@ public abstract class Snake : MonoBehaviour
 
      // manage invincibility frames and GameController
     private bool isInvulnerable = false;
-    public GameController GameController;
+    private GameController GameController;
+    private GridArea gridArea;
 
     protected virtual void Awake()
     {
         lifeUI.text = lifeCounter.ToString();
+        GameController = FindObjectOfType<GameController>();
+        gridArea = FindObjectOfType<GridArea>();
     }
 
     private void Start()
@@ -121,6 +124,10 @@ public abstract class Snake : MonoBehaviour
 
     private void Move(Vector2Int direction)
     {
+        // add tail location to gridArea.openPositions list, unless snake is growing
+        if (segments[^1].position != segments[^2].position) {
+            gridArea.AddOpenPosition((Vector2)segments[^1].position);
+        }
         // move each segment from tail to head
         for (int i = segments.Count - 1; i > 0; i--){
             segments[i].position = segments[i - 1].position;
@@ -130,6 +137,8 @@ public abstract class Snake : MonoBehaviour
         int y = Mathf.RoundToInt(transform.position.y) + direction.y;
         transform.position = new Vector2(x, y);
 
+        // remove new head location from gridArea.openPositions list
+        gridArea.RemoveOpenPosition(transform.position);
     }
 
 
@@ -164,8 +173,6 @@ public abstract class Snake : MonoBehaviour
 
         return false;
     }
-
-
 
     private void OnTriggerEnter2D(Collider2D other)
     // actions when collision occurs
@@ -215,10 +222,8 @@ public abstract class Snake : MonoBehaviour
     protected virtual void Grow(Collider2D food)
     // food is an argument for derived classes
     {
-        // clone prefab asset
-        Transform segment = Instantiate(mySegment);
-        // set position of new segment to the current snake tail
-        segment.position = segments[segments.Count - 1].position;
+        // Instantiate new segment at snake tail position
+        Transform segment = Instantiate(segmentPrefab, segments[^1].position, Quaternion.identity);
         segments.Add(segment);
     }
 

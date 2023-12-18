@@ -6,16 +6,15 @@ public class FoodSpawner : MonoBehaviour
 {
     public int foodCount = 5;
     public Food foodPrefab;
-    public BoxCollider2D gridArea;
+    public GridArea gridArea;
 
     private UnityEngine.Object[] snakes;
-    private Bounds bounds;
 
     private void Awake()
     // Awake is called once on scene initialisation
     {
        snakes = FindObjectsOfType<Snake>();
-       bounds = gridArea.bounds;
+       gridArea = FindObjectOfType<GridArea>();
     }
 
     private void Start()
@@ -27,28 +26,14 @@ public class FoodSpawner : MonoBehaviour
         }
     }
 
-    private Vector2Int RandomPosition()
-    // generate a proposed new location in th e game grid
-    {
-        int x = Mathf.RoundToInt(UnityEngine.Random.Range(bounds.min.x, bounds.max.x));
-        int y = Mathf.RoundToInt(UnityEngine.Random.Range(bounds.min.y, bounds.max.y));
-
-        return new Vector2Int(x, y);
-    }
-
     public Vector2 NewPosition()
     {
-        Vector2Int new_loc = RandomPosition();
+        int i = Mathf.RoundToInt(UnityEngine.Random.Range(0, gridArea.openPositions.Count));
 
-        // Prevent the food from spawning on the snakes
-        foreach (Snake snake in snakes) {
-            while (snake.Occupies(new_loc.x, new_loc.y))
-            {
-                new_loc = RandomPosition();
-            };
-        }
-
-        return new Vector2(new_loc.x, new_loc.y);
+        Vector2 newPosition = gridArea.openPositions[i];
+        gridArea.RemoveOpenPosition(newPosition);
+        
+        return newPosition;
 
     }
 }

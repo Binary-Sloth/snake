@@ -44,7 +44,6 @@ public class FoodLetter : Food
             cumulativeProbability += probabilities[i];
             if (randomValue <= cumulativeProbability)
             {
-                Debug.Log($"chosen letter: {letters[i][0]}");
                 textMesh.text = letters[i][0].ToString();
                 bonusPoints = letterPoints[i];
                 return;

@@ -9,7 +9,7 @@ public class SnakeLetters : Snake
 {
     private string currentWord = "";
     private string wordBank = "";
-    string dictionaryPath = "Assets/Scripts/Dictionaries";
+    readonly string dictionaryPath = "Assets/Scripts/Dictionaries";
 
     public TextMeshProUGUI currentWordUI;
     public TextMeshProUGUI wordBankUI;
@@ -40,7 +40,7 @@ public class SnakeLetters : Snake
         currentWordUI.text = currentWord;
         
         // Display letter in snake
-        segments[segments.Count - 1].gameObject.GetComponentInChildren<TextMesh>().text = letter;
+        segments[currentWord.Length].gameObject.GetComponentInChildren<TextMesh>().text = letter;
     }
 
     protected override Vector2Int GetInput()
@@ -70,7 +70,7 @@ public class SnakeLetters : Snake
 
         // clear letters in snake
         for (int i = 0; i < currentWord.Length; i++) {
-            segments[segments.Count -1 - i].gameObject.GetComponentInChildren<TextMesh>().text = "";
+            segments[1 + i].gameObject.GetComponentInChildren<TextMesh>().text = "";
         }
 
         // reset bonusPoints counter
