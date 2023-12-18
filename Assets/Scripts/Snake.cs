@@ -144,12 +144,20 @@ public abstract class Snake : MonoBehaviour
 
     protected virtual void ResetState()
     {
-        for (int i = 1; i < segments.Count; i++) {
-            Destroy(segments[i].gameObject);
+        for (int i = 0; i < segments.Count; i++) {
+            // make occupied positions available
+            gridArea.AddOpenPosition(segments[i].position);
+            if (i >0) {
+                // destroy segments apart from head
+                Destroy(segments[i].gameObject);
+            }
         }
 
         segments.Clear();
         segments.Add(transform); // add snake head
+
+        // make invulnerable on reset
+        StartCoroutine(OnInvulnerable());
 
         for (int i = 1; i < initialSize; i++) {
             mySegment = Instantiate(segmentPrefab, startPosition, Quaternion.identity);
@@ -158,6 +166,9 @@ public abstract class Snake : MonoBehaviour
         }
 
         transform.position = startPosition;
+        if (gridArea.openPositions.Exists(p => p.x == startPosition.x && p.y == startPosition.y)) {
+            gridArea.RemoveOpenPosition(startPosition);
+        }
     }
 
     public bool Occupies(int x, int y)
@@ -178,27 +189,23 @@ public abstract class Snake : MonoBehaviour
     // actions when collision occurs
     {
         if (gameActive) {
-            if (other.tag == "Food") {
+            if (other.CompareTag("Food")) {
                 Grow(other);
                 pointCounter += other.gameObject.GetComponent<Food>().points;
             }
 
-            if (other.tag == "Obstacle") {
+            if (other.CompareTag("Obstacle") && isInvulnerable == false) {
                 ResetState();
-                Color otherColor = other.gameObject.GetComponent<SpriteRenderer>().color;
-                if (otherColor != myColor && isInvulnerable == false)
-                {
-                    pointCounter -= pointPenalty;
-                    lifeCounter -= 1;
-                    lifeUI.text = lifeCounter.ToString();
+                pointCounter -= pointPenalty;
+                lifeCounter -= 1;
+                lifeUI.text = lifeCounter.ToString();
 
-                    if (lifeCounter == 0) {
-                        Destroy(this.GameObject());
-                        GameController.GameOver();
-                    }
-                    else {
-                        StartCoroutine(OnInvulnerable());
-                    }
+                if (lifeCounter == 0) {
+                    Destroy(this.GameObject());
+                    GameController.GameOver();
+                }
+                else {
+                    StartCoroutine(OnInvulnerable());
                 }
             }
             scoreUI.text = pointCounter.ToString();
