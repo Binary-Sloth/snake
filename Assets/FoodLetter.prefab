@@ -83,15 +83,15 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2609300385017154848}
-  m_Text: G
+  m_Text: +1
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 100
-  m_FontStyle: 0
+  m_FontSize: 80
+  m_FontStyle: 1
   m_RichText: 1
   m_Font: {fileID: 12800000, guid: 4beb055f07aaff244873dec698d0363e, type: 3}
   m_Color:
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 7160549727346939200}
   - component: {fileID: 3790279855126548388}
   - component: {fileID: 6121626660153265672}
-  - component: {fileID: 7226423928792103765}
+  - component: {fileID: 3321477106025207810}
   m_Layer: 0
   m_Name: FoodLetter
   m_TagString: Food
@@ -229,7 +229,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 0.75}
   m_EdgeRadius: 0
---- !u!114 &7226423928792103765
+--- !u!114 &3321477106025207810
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -242,4 +242,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 10
-  textMesh: {fileID: 5843975935874897182}
+  textMesh: {fileID: 0}
+  bonusPoints: 0

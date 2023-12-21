@@ -1,5 +1,3 @@
-// using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 // Food requires the GameObject to have a BoxCollider2D component

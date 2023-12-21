@@ -30,8 +30,6 @@ public abstract class Snake : MonoBehaviour
     public int pointCounter = 0;
     public int pointPenalty = 0;
     public int lifeCounter = 3; // max number of lives
-    public TextMeshProUGUI scoreUI;
-    public TextMeshProUGUI lifeUI;
     public string screenName = "Green";
     public bool gameActive = true; // set to false if game is over
 
@@ -42,7 +40,6 @@ public abstract class Snake : MonoBehaviour
 
     protected virtual void Awake()
     {
-        lifeUI.text = lifeCounter.ToString();
         GameController = FindObjectOfType<GameController>();
         gridArea = FindObjectOfType<GridArea>();
     }
@@ -198,7 +195,6 @@ public abstract class Snake : MonoBehaviour
                 ResetState();
                 pointCounter -= pointPenalty;
                 lifeCounter -= 1;
-                lifeUI.text = lifeCounter.ToString();
 
                 if (lifeCounter == 0) {
                     Destroy(this.GameObject());
@@ -208,7 +204,6 @@ public abstract class Snake : MonoBehaviour
                     StartCoroutine(OnInvulnerable());
                 }
             }
-            scoreUI.text = pointCounter.ToString();
         }
     }
 

@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using UnityEngine;
-using TMPro;
+
 
 public class SnakeLetters : Snake
 {
-    private string currentWord = "";
-    private string wordBank = "";
+    public string currentWord = "";
+    public string wordBank = "";
     readonly string dictionaryPath = "Assets/Scripts/Dictionaries";
 
-    public TextMeshProUGUI currentWordUI;
-    public TextMeshProUGUI wordBankUI;
+
     public int bonusPoints;
 
     private FoodSpawner brickSpawner;
@@ -20,7 +17,6 @@ public class SnakeLetters : Snake
     protected override void Awake()
     {
         base.Awake();
-        wordBankUI.text = wordBank;
         brickSpawner = GameObject.FindGameObjectWithTag("BrickSpawner").GetComponent<FoodSpawner>();
     }
 
@@ -29,7 +25,6 @@ public class SnakeLetters : Snake
         base.ResetState();
         // also reset currentWord and bonusPoints
         currentWord = "";
-        currentWordUI.text = currentWord;
         bonusPoints = 0;
     }
 
@@ -37,13 +32,17 @@ public class SnakeLetters : Snake
     // add food's letter to current word when it is 'eaten'
     {
         base.Grow(food);
-        string letter = food.gameObject.GetComponentInChildren<TextMesh>().text;
-        currentWord += letter;
-        bonusPoints += food.gameObject.GetComponent<FoodLetter>().bonusPoints;
-        currentWordUI.text = currentWord;
-        
-        // Display letter in snake
-        segments[currentWord.Length].gameObject.GetComponentInChildren<TextMesh>().text = letter;
+
+        if (food.gameObject.GetComponent<FoodLetter>() != null)
+        {
+            string letter = food.gameObject.GetComponentInChildren<TextMesh>().text;
+            currentWord += letter;
+            bonusPoints += food.gameObject.GetComponent<FoodLetter>().bonusPoints;
+            
+            // Display letter in snake
+            segments[currentWord.Length].gameObject.GetComponentInChildren<TextMesh>().text = letter;
+        }
+
     }
 
     protected override Vector2Int GetInput()
@@ -61,9 +60,6 @@ public class SnakeLetters : Snake
             // bank word and add bonus points only if it exists in dictionary
             wordBank = $"{currentWord} \r\n{wordBank}";
             pointCounter += bonusPoints;
-            scoreUI.text = pointCounter.ToString();
-            wordBankUI.text = wordBank;
-
         }
         
         else {
@@ -80,7 +76,6 @@ public class SnakeLetters : Snake
         bonusPoints = 0;
         // reset currentWord
         currentWord = "";
-        currentWordUI.text = currentWord;
 
 
 
