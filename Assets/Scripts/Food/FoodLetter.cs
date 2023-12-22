@@ -10,24 +10,22 @@ using System.Linq;
 public class FoodLetter : Food
 {
     public TextMesh textMesh;
-    string letterDataPath = "Assets/LetterValues.csv";
+    public string letterDataPath = "Assets/LetterValues.csv";
     public int bonusPoints;
 
     protected override void Start()
     {
         base.Start();
         textMesh = this.GetComponentInChildren<TextMesh>();
-        // GetRandomLetter();
-        GetRandomCapitalLetterFromCSV(letterDataPath);
+        GetRandomLetterFromCSV(letterDataPath);
     }
 
     private void OnTriggerExit2D()
     {
-        // GetRandomLetter();
-        GetRandomCapitalLetterFromCSV(letterDataPath);
+        GetRandomLetterFromCSV(letterDataPath);
     }
 
-    private void GetRandomCapitalLetterFromCSV(string filePath)
+    public void GetRandomLetterFromCSV(string filePath)
     // csv column 0 = letter, column 1 = probability, column 2 = points
     {
         string[] lines = File.ReadAllLines(filePath);

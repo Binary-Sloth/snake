@@ -22,10 +22,10 @@ public class SnakeLetters : Snake
 
     protected override void ResetState()
     {
-        base.ResetState();
         // also reset currentWord and bonusPoints
-        currentWord = "";
-        bonusPoints = 0;
+        BankWord();
+        
+        base.ResetState();
     }
 
     protected override void Grow(Collider2D food)

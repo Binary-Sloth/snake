@@ -33,8 +33,10 @@ public abstract class Snake : MonoBehaviour
     public string screenName = "Green";
     public bool gameActive = true; // set to false if game is over
 
-     // manage invincibility frames and GameController
-    private bool isInvulnerable = false;
+    // manage invincibility frames and GameController
+    // snake isInvulnerable if int > 0;
+    private int isInvulnerable = 0;
+    private bool isDestroyer = false;
     private GameController GameController;
     private GridArea gridArea;
 
@@ -67,7 +69,7 @@ public abstract class Snake : MonoBehaviour
         input = GetInput();
     }
 
-    protected void SetDeltaTime() {
+    public void SetDeltaTime() {
         deltaTime = 1f / (speed * speedMultiplier);
         nextUpdate = Time.time + deltaTime;
     }
@@ -155,7 +157,7 @@ public abstract class Snake : MonoBehaviour
         segments.Add(transform); // add snake head
 
         // make invulnerable on reset
-        StartCoroutine(OnInvulnerable());
+        StartCoroutine(GoInvulnerable(0.5f));
 
         for (int i = 1; i < initialSize; i++) {
             mySegment = Instantiate(segmentPrefab, startPosition, Quaternion.identity);
@@ -189,36 +191,70 @@ public abstract class Snake : MonoBehaviour
             if (other.CompareTag("Food")) {
                 Grow(other);
                 pointCounter += other.gameObject.GetComponent<Food>().points;
+
+                if (isDestroyer) {
+                    Destroy(other.gameObject);
+                }
             }
 
-            if (other.CompareTag("Obstacle") && isInvulnerable == false) {
+            else if ((other.CompareTag("Obstacle") || other.CompareTag("Wall")) && isInvulnerable == 0) {
                 ResetState();
                 pointCounter -= pointPenalty;
                 lifeCounter -= 1;
 
+                // trigger GameOver if no life left
                 if (lifeCounter == 0) {
                     Destroy(this.GameObject());
                     GameController.GameOver();
                 }
-                else {
-                    StartCoroutine(OnInvulnerable());
-                }
+            }
+
+            else if (other.CompareTag("Wall") && isInvulnerable > 0) {
+                TraverseWall();
+            }
+
+            else if (other.CompareTag("Obstacle") && isDestroyer) {
+                Destroy(other.gameObject);
             }
         }
     }
 
-    private IEnumerator OnInvulnerable()
+    public IEnumerator GoInvulnerable(float invulnerableTime = 0.5f, bool destroyerMode = false)
     // coroutine to set period of invulnerability after collision
+    // also become a destroyer if destroyerMode = true
     {
         int penalty = pointPenalty; 
-        isInvulnerable = true;
         pointPenalty = 0;
-
+        isInvulnerable += 1;
+        if (destroyerMode) {
+            isDestroyer = destroyerMode;
+        }
+        
         // set invulnerability duration
-        yield return new WaitForSeconds(0.5f); 
+        yield return new WaitForSeconds(invulnerableTime); 
 
         pointPenalty = penalty;
-        isInvulnerable = false;
+        isInvulnerable -= 1;
+        isDestroyer = false;
+    }
+
+    private void TraverseWall()
+    // wrap around if snake hits wall
+    {
+        Bounds bounds = gridArea.gameObject.GetComponent<Collider2D>().bounds;
+
+        if (direction.x > 0) {
+            transform.position = new Vector2(bounds.min.x, transform.position.y);
+        }
+        else if (direction.x < 0) {
+            transform.position = new Vector2(bounds.max.x, transform.position.y);
+        }
+        else if (direction.y > 0) {
+            transform.position = new Vector2(transform.position.x, bounds.min.y);
+        }
+        else if (direction.y < 0) {
+            transform.position = new Vector2(transform.position.x, bounds.max.y);
+        }
     }
 
     protected virtual void Grow(Collider2D food)

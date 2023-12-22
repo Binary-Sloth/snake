@@ -8,6 +8,7 @@ TagManager:
   - Obstacle
   - LetterSpawner
   - BrickSpawner
+  - Wall
   layers:
   - Default
   - TransparentFX
