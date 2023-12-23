@@ -2,6 +2,7 @@ using System.Linq;
 using System.IO;
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class WordManager : MonoBehaviour
 {
@@ -16,6 +17,12 @@ public class WordManager : MonoBehaviour
 
     private FoodSpawner brickSpawner;
 
+    // bonus points for each letter beyond baseLength characters in a valid word
+    private int baseLength = 3;
+    private int perLetterBonus = 20;
+    // penalty on bonus points for each repetition of a banked word
+    private float repeatPenalty = 0.8f;
+
     private void Start()
     {
         brickSpawner = GameObject.FindGameObjectWithTag("BrickSpawner").GetComponent<FoodSpawner>();
@@ -26,6 +33,36 @@ public class WordManager : MonoBehaviour
         string letter = foodLetter.textMesh.text;
         currentWord += letter;
         bonusPointCounter += foodLetter.bonusPoints;
+    }
+
+    public void BankWord() 
+    {
+        if (InDictionary(currentWord)) {
+            // bank word and add bonus points only if it exists in dictionary
+            bonusPointCounter += LengthBonus(currentWord, baseLength, perLetterBonus);
+            // apply repeat penalty
+            int repeats = CountOccurrences(currentWord);
+            bonusPointCounter = Mathf.RoundToInt(bonusPointCounter * (float)Math.Pow(repeatPenalty, repeats));
+
+            // output final bonus
+            bonusPoints = bonusPointCounter;
+            
+            // add word to wordBank
+            wordBankList.Add(currentWord);
+            wordBankString = $"{currentWord} \r\n{wordBankString}";
+        }
+        
+        else {
+            bonusPoints = 0;
+            // spawn bricks if word does not exist in dictionary
+            brickSpawner.SpawnFood(foodCount: currentWord.Length);
+
+        }
+
+        // reset bonusPoints counter
+        bonusPointCounter = 0;
+        // reset currentWord
+        currentWord = "";
     }
 
     private int LengthBonus(string currentWord, int baseLength = 3, int bonus = 20) 
@@ -39,7 +76,7 @@ public class WordManager : MonoBehaviour
         }
     }
 
-    public bool CheckDictionary(string testWord)
+    private bool InDictionary(string testWord)
     {
         var files = Directory.GetFiles(dictionaryPath, "*.txt");
 
@@ -56,27 +93,12 @@ public class WordManager : MonoBehaviour
         return false;
     }
 
-    public void BankWord() 
+    private int CountOccurrences(string testWord)
+    // count occurrences of currentWord in wordBankList
     {
-        if (CheckDictionary(currentWord)) {
-            // bank word and add bonus points only if it exists in dictionary
-            wordBankList.Add(currentWord);
-            wordBankString = $"{currentWord} \r\n{wordBankString}";
-            bonusPointCounter += LengthBonus(currentWord, baseLength: 3, bonus: 20);
-            bonusPoints = bonusPointCounter;
-        }
-        
-        else {
-            bonusPoints = 0;
-            // spawn bricks if word does not exist in dictionary
-            brickSpawner.SpawnFood(foodCount: currentWord.Length);
+        int count = wordBankList.Count(s => s == testWord);
 
-        }
-
-        // reset bonusPoints counter
-        bonusPointCounter = 0;
-        // reset currentWord
-        currentWord = "";
+        return count;
     }
 
 }

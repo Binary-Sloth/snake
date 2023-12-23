@@ -2577,6 +2577,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5583356039647704257, guid: dab8bc31c9e1f1a4cbb6f6317463a5ed, type: 3}
   m_PrefabInstance: {fileID: 8462309168004158080}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1250631040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1250631042}
+  - component: {fileID: 1250631041}
+  m_Layer: 0
+  m_Name: Word Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1250631041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250631040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b886b1570d9dfa4c89f55cfd8667c79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWord: 
+  wordBankString: 
+  bonusPoints: 0
+--- !u!4 &1250631042
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250631040}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.890756, y: 0.08666873, z: -0.6554576}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1251215140
 GameObject:
   m_ObjectHideFlags: 0
@@ -2883,9 +2930,6 @@ MonoBehaviour:
   pointPenalty: 0
   lifeCounter: 3
   screenName: Green
-  currentWord: 
-  wordBank: 
-  bonusPoints: 0
 --- !u!61 &1356212145
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4092,3 +4136,4 @@ SceneRoots:
   - {fileID: 1117990757}
   - {fileID: 994625987236287779}
   - {fileID: 919025512}
+  - {fileID: 1250631042}

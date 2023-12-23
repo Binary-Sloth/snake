@@ -3,7 +3,7 @@ using UnityEngine;
 public class InvulnerableMode : PowerUp
 {
     // invulnerability duration in seconds
-    private float duration = 10f;
+    private readonly float duration = 10f;
     protected bool destroyerMode = false;
 
     // action when collision occurs

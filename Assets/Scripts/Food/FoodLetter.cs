@@ -17,18 +17,18 @@ public class FoodLetter : Food
     {
         base.Start();
         textMesh = this.GetComponentInChildren<TextMesh>();
-        GetRandomLetterFromCSV(letterDataPath);
+        GetRandomLetter();
     }
 
     private void OnTriggerExit2D()
     {
-        GetRandomLetterFromCSV(letterDataPath);
+        GetRandomLetter();
     }
 
-    public void GetRandomLetterFromCSV(string filePath)
+    public void GetRandomLetter()
     // csv column 0 = letter, column 1 = probability, column 2 = points
     {
-        string[] lines = File.ReadAllLines(filePath);
+        string[] lines = File.ReadAllLines(letterDataPath);
         lines = lines.Skip(1).ToArray(); // skip header
         string[] letters = lines.Select(line => line.Split(',')[0]).ToArray();
         float[] probabilities = lines.Select(line => float.Parse(line.Split(',')[1])).ToArray();

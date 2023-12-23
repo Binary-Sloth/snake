@@ -10,7 +10,7 @@ public class RandomiseLetters : PowerUp
         
         foreach (FoodLetter letter in letters)
         {
-            letter.GetRandomLetterFromCSV(letter.letterDataPath);
+            letter.GetRandomLetter();
         }
         
         // destroy powerup

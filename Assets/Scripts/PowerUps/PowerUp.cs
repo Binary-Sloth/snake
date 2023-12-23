@@ -3,7 +3,7 @@ using UnityEngine;
 public class PowerUp : Food
 {
     // powerup duration on screen
-    private float duration = 30f;
+    private float timer = 30f;
 
     protected override void Start()
     {
@@ -12,7 +12,7 @@ public class PowerUp : Food
         points = 0;
 
         // Destroy after duration seconds
-        Destroy(this.gameObject, duration);
+        Destroy(this.gameObject, timer);
     }
 
     protected override void OnTriggerEnter2D(Collider2D other)
