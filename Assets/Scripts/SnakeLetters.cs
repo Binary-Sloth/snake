@@ -54,12 +54,23 @@ public class SnakeLetters : Snake
         return base.GetInput();
     }
 
+    private int LengthBonus(string currentWord, int baseLength = 3, int bonus = 20) 
+    // award bonus points for valid words longer than baseLength characters
+    {
+        if (currentWord.Length > baseLength) {
+            return bonus * (currentWord.Length - baseLength);
+        }
+
+        return 0;
+    }
+
     private void BankWord() 
     {
         if (CheckDictionary(currentWord)) {
             // bank word and add bonus points only if it exists in dictionary
             wordBank = $"{currentWord} \r\n{wordBank}";
             pointCounter += bonusPoints;
+            pointCounter += LengthBonus(currentWord, baseLength: 3, bonus: 20);
         }
         
         else {

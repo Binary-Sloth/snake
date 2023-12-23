@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic; // necessary to define list
 using UnityEngine;
-using TMPro;
 using Unity.VisualScripting;
 
 // Snake requires the GameObject to have a BoxCollider2D component
@@ -31,18 +30,17 @@ public abstract class Snake : MonoBehaviour
     public int pointPenalty = 0;
     public int lifeCounter = 3; // max number of lives
     public string screenName = "Green";
-    public bool gameActive = true; // set to false if game is over
 
     // manage invincibility frames and GameController
     // snake isInvulnerable if int > 0;
     private int isInvulnerable = 0;
     private bool isDestroyer = false;
-    private GameController GameController;
+    private GameController gameController;
     private GridArea gridArea;
 
     protected virtual void Awake()
     {
-        GameController = FindObjectOfType<GameController>();
+        gameController = FindObjectOfType<GameController>();
         gridArea = FindObjectOfType<GridArea>();
     }
 
@@ -187,7 +185,7 @@ public abstract class Snake : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     // actions when collision occurs
     {
-        if (gameActive) {
+        if (gameController.gameActive) {
             if (other.CompareTag("Food")) {
                 Grow(other);
                 pointCounter += other.gameObject.GetComponent<Food>().points;
@@ -205,7 +203,7 @@ public abstract class Snake : MonoBehaviour
                 // trigger GameOver if no life left
                 if (lifeCounter == 0) {
                     Destroy(this.GameObject());
-                    GameController.GameOver();
+                    gameController.GameOver();
                 }
             }
 

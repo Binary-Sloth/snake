@@ -25,9 +25,8 @@ public class GameOverScreen : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    protected void processSnake(Snake snake) {
-        // delete snake and extract info
-        snake.gameActive = false;
+    protected void ProcessSnake(Snake snake) {
+        // extract snake infofor display
         winnerName = snake.screenName;
         score = snake.pointCounter;
         Color snakeColor = snake.GetComponent<SpriteRenderer>().color;

@@ -6,7 +6,7 @@ public class SoloGameOverScreen : GameOverScreen
 
     public override void Setup() {
         base.Setup();
-        processSnake(snake);
+        ProcessSnake(snake);
 
         winnerText.text = $"You got {score} points!";
 

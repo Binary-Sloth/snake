@@ -7,7 +7,7 @@ public class FoodSpawner : MonoBehaviour
     public Food foodPrefab;
     public GridArea gridArea;
 
-    private Vector2 nullVector2;
+    protected Vector2 nullVector2;
 
     private void Awake()
     // Awake is called once on scene initialisation

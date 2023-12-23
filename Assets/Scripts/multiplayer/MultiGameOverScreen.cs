@@ -17,10 +17,9 @@ public class MultiGameOverScreen : GameOverScreen
         int maxPoints = -100000; // arbitrary low number
 
         foreach (Snake snake in snakes) {
-            snake.gameActive = false;
             if (snake.pointCounter > maxPoints) {
                 maxPoints = snake.pointCounter;
-                processSnake(snake);
+                ProcessSnake(snake);
             }
             else if (snake.pointCounter == maxPoints) {
                 draw = true;
