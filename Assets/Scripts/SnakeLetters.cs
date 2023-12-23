@@ -5,26 +5,27 @@ using UnityEngine;
 
 public class SnakeLetters : Snake
 {
-    public string currentWord = "";
-    public string wordBank = "";
-    readonly string dictionaryPath = "Assets/Scripts/Dictionaries";
+    // public string currentWord = "";
+    // public string wordBank = "";
+    // readonly string dictionaryPath = "Assets/Scripts/Dictionaries";
 
 
-    public int bonusPoints;
+    // public int bonusPoints;
 
-    private FoodSpawner brickSpawner;
+    // private FoodSpawner brickSpawner;
+    private WordManager wordManager;
 
     protected override void Awake()
     {
         base.Awake();
-        brickSpawner = GameObject.FindGameObjectWithTag("BrickSpawner").GetComponent<FoodSpawner>();
+        // brickSpawner = GameObject.FindGameObjectWithTag("BrickSpawner").GetComponent<FoodSpawner>();
+        wordManager = FindAnyObjectByType<WordManager>();
     }
 
     protected override void ResetState()
     {
         // also reset currentWord and bonusPoints
-        BankWord();
-        
+        UpdateWords();
         base.ResetState();
     }
 
@@ -35,12 +36,14 @@ public class SnakeLetters : Snake
 
         if (food.gameObject.GetComponent<FoodLetter>() != null)
         {
-            string letter = food.gameObject.GetComponentInChildren<TextMesh>().text;
-            currentWord += letter;
-            bonusPoints += food.gameObject.GetComponent<FoodLetter>().bonusPoints;
-            
+            // string letter = food.gameObject.GetComponentInChildren<TextMesh>().text;
+            // currentWord += letter;
+            // bonusPoints += food.gameObject.GetComponent<FoodLetter>().bonusPoints;
+            FoodLetter foodLetter = food.gameObject.GetComponent<FoodLetter>();
+            wordManager.AddLetter(foodLetter);
             // Display letter in snake
-            segments[currentWord.Length].gameObject.GetComponentInChildren<TextMesh>().text = letter;
+            string letter = foodLetter.textMesh.text;
+            segments[wordManager.currentWord.Length].gameObject.GetComponentInChildren<TextMesh>().text = letter;
         }
 
     }
@@ -48,68 +51,69 @@ public class SnakeLetters : Snake
     protected override Vector2Int GetInput()
     // 'Bank' current word if the user hits spacebar
     {
-        if (Input.GetKeyDown(KeyCode.Space) && currentWord != "") {
-            BankWord();
+        if (Input.GetKeyDown(KeyCode.Space) && wordManager.currentWord != "") {
+            UpdateWords();
         }
         return base.GetInput();
     }
 
-    private int LengthBonus(string currentWord, int baseLength = 3, int bonus = 20) 
-    // award bonus points for valid words longer than baseLength characters
-    {
-        if (currentWord.Length > baseLength) {
-            return bonus * (currentWord.Length - baseLength);
-        }
+    // private int LengthBonus(string currentWord, int baseLength = 3, int bonus = 20) 
+    // // award bonus points for valid words longer than baseLength characters
+    // {
+    //     if (currentWord.Length > baseLength) {
+    //         return bonus * (currentWord.Length - baseLength);
+    //     }
 
-        return 0;
-    }
+    //     return 0;
+    // }
 
-    private void BankWord() 
+    private void UpdateWords() 
     {
-        if (CheckDictionary(currentWord)) {
-            // bank word and add bonus points only if it exists in dictionary
-            wordBank = $"{currentWord} \r\n{wordBank}";
-            pointCounter += bonusPoints;
-            pointCounter += LengthBonus(currentWord, baseLength: 3, bonus: 20);
-        }
+        // if (CheckDictionary(currentWord)) {
+        //     // bank word and add bonus points only if it exists in dictionary
+        //     wordBank = $"{currentWord} \r\n{wordBank}";
+        //     pointCounter += bonusPoints;
+        //     pointCounter += LengthBonus(currentWord, baseLength: 3, bonus: 20);
+        // }
         
-        else {
-            // spawn bricks if word does not exist in dictionary
-            brickSpawner.SpawnFood(foodCount: currentWord.Length);
-        }
+        // else {
+        //     // spawn bricks if word does not exist in dictionary
+        //     brickSpawner.SpawnFood(foodCount: currentWord.Length);
+        // }
 
         // clear letters in snake
-        for (int i = 0; i < currentWord.Length; i++) {
+        for (int i = 0; i < wordManager.currentWord.Length; i++) {
             segments[1 + i].gameObject.GetComponentInChildren<TextMesh>().text = "";
         }
 
-        // reset bonusPoints counter
-        bonusPoints = 0;
-        // reset currentWord
-        currentWord = "";
+        wordManager.BankWord();
+        // add bonus points
+        pointCounter += wordManager.bonusPoints;
 
-
-
+        // // reset bonusPoints counter
+        // bonusPoints = 0;
+        // // reset currentWord
+        // currentWord = "";
     }
 
-    public bool CheckDictionary(string testWord)
-    {
-        var files = Directory.GetFiles(dictionaryPath, "*.txt");
+    // public bool CheckDictionary(string testWord)
+    // {
+    //     var files = Directory.GetFiles(dictionaryPath, "*.txt");
 
-        foreach (var file in files)
-        {
-            var lines = File.ReadAllLines(file);
+    //     foreach (var file in files)
+    //     {
+    //         var lines = File.ReadAllLines(file);
 
-            foreach (var line in lines)
-            {
-                var words = line.Split(' ');
-                if (words.Contains(testWord))
-                {
-                    return true;
-                }
-            }
-        }
+    //         foreach (var line in lines)
+    //         {
+    //             var words = line.Split(' ');
+    //             if (words.Contains(testWord))
+    //             {
+    //                 return true;
+    //             }
+    //         }
+    //     }
 
-        return false;
-    }
+    //     return false;
+    // }
 }

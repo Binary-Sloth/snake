@@ -6,6 +6,6 @@ public class currentWordUI : TextUI
 {
     void Update()
     {
-        this.GetComponent<TextMeshProUGUI>().text = snake.currentWord;
+        this.GetComponent<TextMeshProUGUI>().text = wordManager.currentWord;
     }
 }
