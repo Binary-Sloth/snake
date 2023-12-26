@@ -12,7 +12,7 @@ public class RemoveLetter : PowerUp
         // remove it
         foodSpawner.gridArea.AddOpenPosition(letter.gameObject.transform.position);
         
-        Destroy(letter.gameObject);
+        colorManager.ColorPulseDeSpawn(letter.gameObject, pulseDuration: 1f);
         
         // destroy powerup
         base.OnTriggerEnter2D(other);

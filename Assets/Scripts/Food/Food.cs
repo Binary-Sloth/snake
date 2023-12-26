@@ -6,10 +6,12 @@ public class Food : MonoBehaviour
 {
     public int points = 10;
     protected FoodSpawner foodSpawner;
+    protected ColorManager colorManager;
 
     protected virtual void Start()
     {
         foodSpawner = GameObject.FindWithTag("LetterSpawner").GetComponent<FoodSpawner>();
+        colorManager = FindAnyObjectByType<ColorManager>();
     }
 
     // action when collision occurs
