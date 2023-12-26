@@ -6,6 +6,7 @@ public class FoodSpawner : MonoBehaviour
 {
     public Food foodPrefab;
     public GridArea gridArea;
+    private ColorManager colorManager;
 
     protected Vector2 nullVector2;
 
@@ -13,18 +14,22 @@ public class FoodSpawner : MonoBehaviour
     // Awake is called once on scene initialisation
     {
        gridArea = FindAnyObjectByType<GridArea>();
+       colorManager = FindAnyObjectByType<ColorManager>();
 
        // nullVector2 should have values that will never exist in gridArea.openpositions
        nullVector2 = new Vector2(1000.5f, 1000.5f);
     }
 
-    public void SpawnFood(int foodCount = 1)
+    public void SpawnFood(int foodCount = 1, bool colorEffect = false)
     {
         while (foodCount > 0) {
             Vector2 randomPosition = NewPosition();
 
             if (randomPosition != nullVector2) {
-                Instantiate(foodPrefab, randomPosition, Quaternion.identity);
+                Food food = Instantiate(foodPrefab, randomPosition, Quaternion.identity);
+                if (colorEffect) {
+                    colorManager.ColorPulseSpawner(food.gameObject);
+                }
                 foodCount -= 1;
             }
 

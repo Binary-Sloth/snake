@@ -1,22 +1,33 @@
-using System.Linq;
-using System.IO;
 using UnityEngine;
+using System.Collections;
+using UnityEngine.Rendering;
+using Unity.VisualScripting;
+using System.Security.Cryptography;
 
 
 public class SnakeLetters : Snake
 {
     private WordManager wordManager;
+    private bool startBool;
 
     protected override void Awake()
     {
         base.Awake();
         wordManager = FindAnyObjectByType<WordManager>();
+        startBool = true;
     }
 
     protected override void ResetState()
     {
-        // also reset currentWord and bonusPoints
+        if (startBool == false) {
+        // also reset currentWord and bonusPoints (after scene initialisation)
         UpdateWords();
+        }
+        else {
+            // don't run 'UpdateWords' at scene initialisation
+            startBool = false;
+        }
+
         base.ResetState();
     }
 
@@ -43,6 +54,7 @@ public class SnakeLetters : Snake
         if (Input.GetKeyDown(KeyCode.Space) && wordManager.currentWord != "") {
             UpdateWords();
         }
+
         return base.GetInput();
     }
 
@@ -52,10 +64,21 @@ public class SnakeLetters : Snake
         for (int i = 0; i < wordManager.currentWord.Length; i++) {
             segments[1 + i].gameObject.GetComponentInChildren<TextMesh>().text = "";
         }
+        
+        // flash colours
+        for (int i = 0; i < wordManager.currentWord.Length + 1; i++) {
+            if (wordManager.InDictionary(wordManager.currentWord)) {
+                colorManager.ColorPulseSuccess(segments[i].gameObject);
+                }
+            else {
+                colorManager.ColorPulseFail(segments[i].gameObject);
+            }
+        }
 
         wordManager.BankWord();
         // add bonus points
         pointCounter += wordManager.bonusPoints;
 
     }
+
 }

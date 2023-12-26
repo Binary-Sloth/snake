@@ -9,6 +9,7 @@ TagManager:
   - LetterSpawner
   - BrickSpawner
   - Wall
+  - Highlight
   layers:
   - Default
   - TransparentFX

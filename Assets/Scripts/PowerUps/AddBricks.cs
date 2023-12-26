@@ -11,10 +11,10 @@ public class AddBricks : PowerUp
         // get brickSpawner
         brickSpawner = GameObject.FindGameObjectWithTag("BrickSpawner").GetComponent<FoodSpawner>();
 
-        // convert 1/10th open grid area to bricks
+        // convert coverage fraction of open grid area to bricks
         int numOpenPositions = brickSpawner.gridArea.openPositions.Count;
         int numBricks = Mathf.Max(Mathf.RoundToInt(numOpenPositions * coverage), 1);
-        brickSpawner.SpawnFood(numBricks);
+        brickSpawner.SpawnFood(numBricks, colorEffect: true);
         
         // destroy powerup
         base.OnTriggerEnter2D(other);

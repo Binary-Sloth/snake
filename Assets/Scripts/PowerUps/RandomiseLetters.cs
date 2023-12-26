@@ -7,10 +7,15 @@ public class RandomiseLetters : PowerUp
     {      
         // get random letter
         FoodLetter[] letters = FindObjectsByType<FoodLetter>(FindObjectsSortMode.None);
+
+        // get color manager
+        ColorManager colorManager = FindAnyObjectByType<ColorManager>();
         
         foreach (FoodLetter letter in letters)
         {
             letter.GetRandomLetter();
+            colorManager.ColorPulseRefresh(letter.gameObject);
+
         }
         
         // destroy powerup

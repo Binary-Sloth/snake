@@ -76,7 +76,7 @@ public class WordManager : MonoBehaviour
         }
     }
 
-    private bool InDictionary(string testWord)
+    public bool InDictionary(string testWord)
     {
         var files = Directory.GetFiles(dictionaryPath, "*.txt");
 

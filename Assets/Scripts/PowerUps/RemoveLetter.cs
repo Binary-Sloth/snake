@@ -11,6 +11,7 @@ public class RemoveLetter : PowerUp
 
         // remove it
         foodSpawner.gridArea.AddOpenPosition(letter.gameObject.transform.position);
+        
         Destroy(letter.gameObject);
         
         // destroy powerup

@@ -35,6 +35,7 @@ public abstract class Snake : MonoBehaviour
     // snake isInvulnerable if int > 0;
     private int isInvulnerable = 0;
     private bool isDestroyer = false;
+    protected ColorManager colorManager;
     private GameController gameController;
     private GridArea gridArea;
 
@@ -42,13 +43,13 @@ public abstract class Snake : MonoBehaviour
     {
         gameController = FindObjectOfType<GameController>();
         gridArea = FindObjectOfType<GridArea>();
+        colorManager = FindAnyObjectByType<ColorManager>();
     }
 
     private void Start()
     // initialise snake with head
     {
         // initialise start position with inspector value
-        // ensure rounding to int
         startPosition = new Vector2(
             Mathf.RoundToInt(transform.position.x),
             Mathf.RoundToInt(transform.position.y)
@@ -226,6 +227,16 @@ public abstract class Snake : MonoBehaviour
         isInvulnerable += 1;
         if (destroyerMode) {
             isDestroyer = destroyerMode;
+        }
+
+        for (int i = 0; i < segments.Count; i++) {
+            if (destroyerMode) {
+                colorManager.ColorPulseDestroyer(segments[i].gameObject, invulnerableTime);
+            }
+            else {
+                colorManager.ColorPulseInvincible(segments[i].gameObject, invulnerableTime);
+            }
+            
         }
         
         // set invulnerability duration
