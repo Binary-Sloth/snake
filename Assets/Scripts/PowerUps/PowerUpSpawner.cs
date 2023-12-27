@@ -15,7 +15,6 @@ public class PowerUpSpawner : FoodSpawner
 
     public IEnumerator SpawnPowerupCoroutine(float waitMin, float waitMax, int powerUpCount)
     {
-        // Debug.Log(gameController.gameActive);
         while (gameController.gameActive) {
             SpawnPowerUps(powerUpCount);
             float waitTime = Random.Range(waitMin, waitMax);

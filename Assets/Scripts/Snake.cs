@@ -39,11 +39,14 @@ public abstract class Snake : MonoBehaviour
     private GameController gameController;
     private GridArea gridArea;
 
+    protected bool startBool;
+
     protected virtual void Awake()
     {
         gameController = FindObjectOfType<GameController>();
         gridArea = FindObjectOfType<GridArea>();
         colorManager = FindAnyObjectByType<ColorManager>();
+        startBool = true;
     }
 
     private void Start()
@@ -59,7 +62,7 @@ public abstract class Snake : MonoBehaviour
 
         myColor = GetComponent<SpriteRenderer>().color;
 
-        ResetState();
+        ResetState(colorEffect: false);
     }
 
     private void Update()
@@ -140,13 +143,12 @@ public abstract class Snake : MonoBehaviour
         gridArea.RemoveOpenPosition(transform.position);
     }
 
-
-    protected virtual void ResetState()
+    protected virtual void ResetState(bool colorEffect = true)
     {
         for (int i = 0; i < segments.Count; i++) {
             // make occupied positions available
             gridArea.AddOpenPosition(segments[i].position);
-            if (i >0) {
+            if (i > 0) {
                 // destroy segments apart from head
                 Destroy(segments[i].gameObject);
             }
@@ -156,7 +158,7 @@ public abstract class Snake : MonoBehaviour
         segments.Add(transform); // add snake head
 
         // make invulnerable on reset
-        StartCoroutine(GoInvulnerable(0.5f));
+        StartCoroutine(GoInvulnerable(0.5f, colorEffect: colorEffect));
 
         for (int i = 1; i < initialSize; i++) {
             mySegment = Instantiate(segmentPrefab, startPosition, Quaternion.identity);
@@ -218,7 +220,7 @@ public abstract class Snake : MonoBehaviour
         }
     }
 
-    public IEnumerator GoInvulnerable(float invulnerableTime = 0.5f, bool destroyerMode = false)
+    public IEnumerator GoInvulnerable(float invulnerableTime = 0.5f, bool destroyerMode = false, bool colorEffect = true)
     // coroutine to set period of invulnerability after collision
     // also become a destroyer if destroyerMode = true
     {
@@ -229,15 +231,15 @@ public abstract class Snake : MonoBehaviour
             isDestroyer = destroyerMode;
         }
 
-        for (int i = 0; i < segments.Count; i++) {
+        if (colorEffect) {
             if (destroyerMode) {
-                colorManager.ColorPulseDestroyer(segments[i].gameObject, invulnerableTime);
+                colorManager.ColorPulseDestroyer(segments, invulnerableTime);
             }
             else {
-                colorManager.ColorPulseInvincible(segments[i].gameObject, invulnerableTime);
+                colorManager.ColorPulseInvincible(segments, invulnerableTime);
             }
-            
         }
+
         
         // set invulnerability duration
         yield return new WaitForSeconds(invulnerableTime); 
@@ -271,6 +273,7 @@ public abstract class Snake : MonoBehaviour
     {
         // Instantiate new segment at snake tail position
         Transform segment = Instantiate(segmentPrefab, segments[^1].position, Quaternion.identity);
+        mySegment.gameObject.GetComponent<SpriteRenderer>().color = myColor;
         segments.Add(segment);
     }
 

@@ -8,16 +8,14 @@ using System.Security.Cryptography;
 public class SnakeLetters : Snake
 {
     private WordManager wordManager;
-    private bool startBool;
 
     protected override void Awake()
     {
         base.Awake();
         wordManager = FindAnyObjectByType<WordManager>();
-        startBool = true;
     }
 
-    protected override void ResetState()
+    protected override void ResetState(bool colorEffect = true)
     {
         if (startBool == false) {
         // also reset currentWord and bonusPoints (after scene initialisation)
@@ -28,7 +26,7 @@ public class SnakeLetters : Snake
             startBool = false;
         }
 
-        base.ResetState();
+        base.ResetState(colorEffect);
     }
 
     protected override void Grow(Collider2D food)
@@ -60,13 +58,10 @@ public class SnakeLetters : Snake
 
     private void UpdateWords() 
     {
-        // clear letters in snake
-        for (int i = 0; i < wordManager.currentWord.Length; i++) {
-            segments[1 + i].gameObject.GetComponentInChildren<TextMesh>().text = "";
-        }
-        
-        // flash colours
         for (int i = 0; i < wordManager.currentWord.Length + 1; i++) {
+            // clear letters in snake
+            segments[1 + i].gameObject.GetComponentInChildren<TextMesh>().text = "";
+            // flash colours
             if (wordManager.InDictionary(wordManager.currentWord)) {
                 colorManager.ColorPulseSuccess(segments[i].gameObject);
                 }

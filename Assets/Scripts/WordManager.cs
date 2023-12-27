@@ -56,7 +56,6 @@ public class WordManager : MonoBehaviour
             bonusPoints = 0;
             // spawn bricks if word does not exist in dictionary
             brickSpawner.SpawnFood(foodCount: currentWord.Length, colorEffect: true);
-
         }
 
         // reset bonusPoints counter

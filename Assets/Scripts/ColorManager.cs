@@ -1,5 +1,5 @@
-using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ColorManager : MonoBehaviour
@@ -23,7 +23,7 @@ public class ColorManager : MonoBehaviour
         cSpawner = Color.clear;
     }
 
-    public IEnumerator ColorPulse(GameObject gameObject, Color altColour, float duration, int pulse, float delay = 0f, bool despawn = false)
+    private IEnumerator ColorPulse(GameObject gameObject, Color altColour, float duration, int pulse, float delay = 0f, bool despawn = false)
     {
         SpriteRenderer sr = gameObject.GetComponent<SpriteRenderer>();
 
@@ -38,7 +38,7 @@ public class ColorManager : MonoBehaviour
                 sr.color = Color.Lerp(altColour, originColor , Mathf.PingPong(t * pulse * 2, 1));
             }
             catch(MissingReferenceException ex) {
-                // ignore in case snake resets and gameObject disappears (for tail segments)
+                // continue ignore in case snake resets and gameObject disappears (for tail segments)
             }
             yield return null;
         }
@@ -58,6 +58,56 @@ public class ColorManager : MonoBehaviour
         }
     }
 
+    private IEnumerator ColorPulse(List<Transform> transforms, Color altColour, float pulseDuration, int pulse, float delay = 0f, bool despawn = false)
+    {
+        SpriteRenderer sr;
+
+        // save origin color
+        Color originColor = Color.clear;
+
+        // delay if desired
+        yield return new WaitForSeconds(delay);
+        
+            for (float t = 0; t < 1.0f; t += Time.deltaTime/pulseDuration)
+            {
+                foreach (Transform transform in transforms) 
+                {
+                    sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
+
+                        try {
+                            sr.color = Color.Lerp(altColour, originColor , Mathf.PingPong(t * pulse * 2, 1));
+                        }
+                        catch(MissingReferenceException ex) {
+                            // continue ignore in case snake resets and gameObject is destroyed (for tail segments)
+                        }
+                }
+                yield return null;
+            }
+
+        // after pulseDuration either delete all items in the list or change them back to their original color
+
+        foreach (Transform transform in transforms) 
+        {
+            if (despawn) {
+                Destroy(transform.gameObject);
+            }
+            else {
+                sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
+                // restore origin color
+                try {
+                    Debug.Log("original color reset");
+                    sr.color = originColor;
+                }
+                catch(MissingReferenceException ex) {
+                    // ignore in case snake resets (for tail segments)
+                }
+            }
+        }
+        yield return null;
+
+
+    }
+
     public void ColorPulseSuccess(GameObject gameObject)
     {
         StartCoroutine(ColorPulse(gameObject, cSuccess, duration: 1f, pulse: 2));
@@ -68,18 +118,17 @@ public class ColorManager : MonoBehaviour
         StartCoroutine(ColorPulse(gameObject, cFail, duration: 1f, pulse: 2));
     }
 
-    public void ColorPulseInvincible(GameObject gameObject, float iduration = 10f)
+    public void ColorPulseInvincible(List<Transform> transforms, float iduration = 10f)
     // snake highlight colouration in Invincible mode
     {
-        gameObject = gameObject.GetComponentInChildren<SpriteRenderer>().gameObject;
-        StartCoroutine(ColorPulse(gameObject, cInvincible, iduration, pulse: (int)iduration));
+        StartCoroutine(ColorPulse(transforms, cInvincible, iduration, pulse: (int)iduration));
     }
 
-    public void ColorPulseDestroyer(GameObject gameObject, float iduration = 10f)
+    public void ColorPulseDestroyer(List<Transform> transforms, float iduration = 10f)
     // snake highlight colouration in Destroyer mode
     {
-        gameObject = gameObject.GetComponentInChildren<SpriteRenderer>().gameObject;
-        StartCoroutine(ColorPulse(gameObject, cDestroyer, iduration, pulse: (int)iduration));
+        StartCoroutine(ColorPulse(transforms, cDestroyer, iduration, pulse: (int)iduration));
+        StartCoroutine(ColorPulse(transforms[0].gameObject, cDestroyer, iduration, pulse: (int)iduration));
     }
 
     public void ColorPulseRefresh(GameObject gameObject)
