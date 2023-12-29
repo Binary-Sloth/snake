@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class AddLetter : PowerUp
 {
+
+    private void Awake()
+    {
+        displayText = "Add Letter!";
+    }
+
     // action when collision occurs
     protected override void OnTriggerEnter2D(Collider2D other)
     {

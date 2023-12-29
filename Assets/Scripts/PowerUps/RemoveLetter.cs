@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class RemoveLetter : PowerUp
 {
+    private void Awake()
+    {
+        displayText = "Remove Letter!";
+    }
     // action when collision occurs
     protected override void OnTriggerEnter2D(Collider2D other)
     {      

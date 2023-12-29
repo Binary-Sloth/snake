@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class RandomiseLetters : PowerUp
 {
+    private void Awake()
+    {
+        displayText = "Refresh Letters!";
+    }
+
     // action when collision occurs
     protected override void OnTriggerEnter2D(Collider2D other)
     {      

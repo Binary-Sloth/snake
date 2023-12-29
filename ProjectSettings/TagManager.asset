@@ -10,6 +10,7 @@ TagManager:
   - BrickSpawner
   - Wall
   - Highlight
+  - FloatingText
   layers:
   - Default
   - TransparentFX

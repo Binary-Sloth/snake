@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class InvulnerableMode : PowerUp
 {
+    private void Awake()
+    {
+        displayText = "Invulnerable Mode!";
+    }
+
     // invulnerability duration in seconds
     private readonly float duration = 10f;
     protected bool destroyerMode = false;

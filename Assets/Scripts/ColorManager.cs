@@ -95,7 +95,6 @@ public class ColorManager : MonoBehaviour
                 sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
                 // restore origin color
                 try {
-                    Debug.Log("original color reset");
                     sr.color = originColor;
                 }
                 catch(MissingReferenceException ex) {

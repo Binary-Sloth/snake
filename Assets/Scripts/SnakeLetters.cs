@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 public class SnakeLetters : Snake
 {
     private WordManager wordManager;
+    [SerializeField] private GameObject floatingTextPrefab;
 
     protected override void Awake()
     {
@@ -73,7 +74,21 @@ public class SnakeLetters : Snake
         wordManager.BankWord();
         // add bonus points
         pointCounter += wordManager.bonusPoints;
+        // show points
+        if (wordManager.bonusPoints > 0) {
+            ShowPoints(wordManager.bonusPoints);
+        }
 
+    }
+
+    private void ShowPoints(int points)
+    {
+        if(floatingTextPrefab)
+        {
+            GameObject prefab = Instantiate(floatingTextPrefab, transform.position, Quaternion.identity);
+            prefab.GetComponentInChildren<TextMesh>().fontSize = 200;
+            prefab.GetComponentInChildren<TextMesh>().text = $" + {points.ToString()}";
+        }
     }
 
 }

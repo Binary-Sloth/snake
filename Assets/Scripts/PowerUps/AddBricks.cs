@@ -1,9 +1,15 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AddBricks : PowerUp
 {
     private FoodSpawner brickSpawner;
     private float coverage = 0.01f;
+    
+    private void Awake()
+    {
+        displayText = "Spawn Bricks!";
+    }
 
     // action when collision occurs
     protected override void OnTriggerEnter2D(Collider2D other)
