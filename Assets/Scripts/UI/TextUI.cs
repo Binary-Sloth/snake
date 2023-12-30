@@ -13,10 +13,4 @@ public class TextUI : MonoBehaviour
         snake = FindAnyObjectByType<SnakeLetters>();
         wordManager = FindAnyObjectByType<WordManager>();
     }
-    protected virtual void Start()
-    {
-        this.GetComponent<TextMeshProUGUI>().text = "";
-        
-    }
-
 }

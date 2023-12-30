@@ -4,13 +4,14 @@ using UnityEngine.UI;
 
 public class LifeUI : TextUI
 {
-    protected override void Start()
-    {
-        this.GetComponent<TextMeshProUGUI>().text = "0";
-    }
+    // void Start()
+    // {
+    //     this.GetComponentInChildren<TextMeshPro>().text = "Life <color=#1CF20D>3";
+    // }
 
     void Update()
     {
-        this.GetComponent<TextMeshProUGUI>().text = snake.lifeCounter.ToString();
+        string life = snake.lifeCounter.ToString();
+        this.GetComponentInChildren<TextMeshPro>().text =  $"Life <color=#1CF20D>{life}";
     }
 }

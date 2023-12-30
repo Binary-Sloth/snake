@@ -4,13 +4,14 @@ using UnityEngine.UI;
 
 public class PointsUI : TextUI
 {
-    protected override void Start()
-    {
-        this.GetComponent<TextMeshProUGUI>().text = "0";
-    }
+    // void Start()
+    // {
+    //     this.GetComponentInChildren<TextMeshPro>().text = "Score <color=#1CF20D>0";
+    // }
 
     void Update()
     {
-        this.GetComponent<TextMeshProUGUI>().text = snake.pointCounter.ToString();
+        string points = snake.pointCounter.ToString();
+        this.GetComponentInChildren<TextMeshPro>().text =  $"Score <color=#1CF20D>{points}";
     }
 }

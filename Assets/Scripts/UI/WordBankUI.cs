@@ -6,6 +6,6 @@ public class WordBankUI : TextUI
 {
     void Update()
     {
-        this.GetComponent<TextMeshProUGUI>().text = wordManager.wordBankString;
+        this.GetComponentInChildren<TextMeshPro>().text = wordManager.wordBankString;
     }
 }

@@ -86,8 +86,7 @@ public class SnakeLetters : Snake
         if(floatingTextPrefab)
         {
             GameObject prefab = Instantiate(floatingTextPrefab, transform.position, Quaternion.identity);
-            prefab.GetComponentInChildren<TextMesh>().fontSize = 200;
-            prefab.GetComponentInChildren<TextMesh>().text = $" + {points.ToString()}";
+            prefab.GetComponentInChildren<TextMesh>().text = $" + {points.ToString()} bonus!";
         }
     }
 

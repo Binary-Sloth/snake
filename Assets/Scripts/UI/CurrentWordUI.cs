@@ -6,6 +6,6 @@ public class currentWordUI : TextUI
 {
     void Update()
     {
-        this.GetComponent<TextMeshProUGUI>().text = wordManager.currentWord;
+        this.GetComponentInChildren<TextMeshPro>().text = $"Words\r\n<color=#1CF20D>{wordManager.currentWord}";
     }
 }
