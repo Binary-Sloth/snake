@@ -10,12 +10,13 @@ using System.Linq;
 public class FoodLetter : Food
 {
     public TextMesh textMesh;
-    public string letterDataPath = "Assets/LetterValues.csv";
+    private string letterDataPath;
     public int bonusPoints;
 
     protected override void Start()
     {
         base.Start();
+        letterDataPath = "Assets/Resources/LetterValues.csv";
         textMesh = this.GetComponentInChildren<TextMesh>();
         GetRandomLetter();
     }

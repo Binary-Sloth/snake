@@ -10,7 +10,7 @@ public abstract class Snake : MonoBehaviour
     // snake position and movement variables
     public float speed = 8f;
     public float speedMultiplier = 1f;
-    public Vector2Int direction = Vector2Int.up;
+    protected Vector2Int direction = Vector2Int.up;
     protected Vector2Int input = Vector2Int.zero; 
     public Vector2 startPosition; // starting snake position
 
@@ -117,7 +117,10 @@ public abstract class Snake : MonoBehaviour
             direction = input;
         }
 
-        Move(direction);
+        if (gameController.gameActive) {
+            Move(direction);
+        }
+        
 
          // Set the next update time based on the speed
         nextUpdate = Time.time + deltaTime;       

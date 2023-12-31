@@ -10,7 +10,7 @@ public class WordManager : MonoBehaviour
 
     private List<string> wordBankList = new();
     public string wordBankString = "";
-    readonly string dictionaryPath = "Assets/Scripts/Dictionaries";
+    readonly string dictionaryPath = "Assets/Resources/Dictionaries";
 
     public int bonusPoints;
     private int bonusPointCounter;
@@ -84,7 +84,7 @@ public class WordManager : MonoBehaviour
 
             foreach (var line in lines) {
                 var words = line.Split(' ');
-                if (words.Contains(testWord)) {
+                if (words.Contains(testWord) || words.Contains(testWord.ToLower())) {
                     return true;
                 }
             }
