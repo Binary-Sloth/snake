@@ -6,19 +6,24 @@ using UnityEngine;
 // for GetRandomCapitalLetterFromCSV()
 using System.IO;
 using System.Linq;
+using System.Buffers;
+using System;
 
 public class FoodLetter : Food
 {
     public TextMesh textMesh;
     private string letterDataPath;
     public int bonusPoints;
+    [SerializeField] bool amy = false;
 
     protected override void Start()
     {
         base.Start();
         letterDataPath = "Assets/Resources/LetterValues.csv";
         textMesh = this.GetComponentInChildren<TextMesh>();
-        GetRandomLetter();
+        GetRandomLetter(amy); // fix letter at start for Amy
+        Debug.Log(letterDataPath);
+
     }
 
     private void OnTriggerExit2D()
@@ -26,7 +31,7 @@ public class FoodLetter : Food
         GetRandomLetter();
     }
 
-    public void GetRandomLetter()
+    public void GetRandomLetter(bool fixedLetter = false)
     // csv column 0 = letter, column 1 = probability, column 2 = points
     {
         string[] lines = File.ReadAllLines(letterDataPath);
@@ -35,7 +40,13 @@ public class FoodLetter : Food
         float[] probabilities = lines.Select(line => float.Parse(line.Split(',')[1])).ToArray();
         int[] letterPoints = lines.Select(line => int.Parse(line.Split(',')[2])).ToArray();
 
-        float randomValue = Random.value;
+    if (fixedLetter) {
+        int index = Array.IndexOf(letters, textMesh.text);
+        bonusPoints = letterPoints[index];
+    }
+
+    else {
+        float randomValue = UnityEngine.Random.value;
         float cumulativeProbability = 0.0f;
 
         for (int i = 0; i < letters.Length; i++)
@@ -51,5 +62,7 @@ public class FoodLetter : Food
         // last letter
         textMesh.text = letters[letters.Length - 1][0].ToString();
         bonusPoints = letterPoints[letters.Length - 1];
+    }
+
     }
 }

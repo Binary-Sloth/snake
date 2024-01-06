@@ -1,21 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FoodSpawner : MonoBehaviour
 // Spawns food at a random location in the grid area.
 // Must be invoked after snakes have spawned (to avoid spawning on top of them)
 {
-    public Food foodPrefab;
-    public GridArea gridArea;
-    private ColorManager colorManager;
+    [SerializeField] private Food foodPrefab;
+    [SerializeField] public GridArea gridArea;
+    [SerializeField] private ColorManager colorManager;
 
     protected Vector2 nullVector2;
 
     private void Awake()
     // Awake is called once on scene initialisation
     {
-       gridArea = FindAnyObjectByType<GridArea>();
-       colorManager = FindAnyObjectByType<ColorManager>();
-
        // nullVector2 should have values that will never exist in gridArea.openpositions
        nullVector2 = new Vector2(1000.5f, 1000.5f);
     }

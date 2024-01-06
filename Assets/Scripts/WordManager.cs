@@ -15,18 +15,13 @@ public class WordManager : MonoBehaviour
     public int bonusPoints;
     private int bonusPointCounter;
 
-    private FoodSpawner brickSpawner;
+    [SerializeField] private FoodSpawner brickSpawner;
 
     // bonus points for each letter beyond baseLength characters in a valid word
     private int baseLength = 3;
     private int perLetterBonus = 20;
     // penalty on bonus points for each repetition of a banked word
     private float repeatPenalty = 0.8f;
-
-    private void Start()
-    {
-        brickSpawner = GameObject.FindGameObjectWithTag("BrickSpawner").GetComponent<FoodSpawner>();
-    }
 
     public void AddLetter(FoodLetter foodLetter)
     {
@@ -55,7 +50,7 @@ public class WordManager : MonoBehaviour
         else {
             bonusPoints = 0;
             // spawn bricks if word does not exist in dictionary
-            brickSpawner.SpawnFood(foodCount: currentWord.Length, colorEffect: true);
+            // brickSpawner.SpawnFood(foodCount: currentWord.Length, colorEffect: true);
         }
 
         // reset bonusPoints counter

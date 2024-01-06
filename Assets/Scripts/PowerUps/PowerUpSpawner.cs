@@ -4,21 +4,20 @@ using UnityEngine;
 public class PowerUpSpawner : FoodSpawner
 // spawns random powerups
 {
-    private GameController gameController;
+    [SerializeField] private GameController gameController;
     private PowerUp[] powerUps;
 
     private void Start()
     {
         powerUps = FindObjectsByType<PowerUp>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-        gameController = FindAnyObjectByType<GameController>();
     }
 
     public IEnumerator SpawnPowerupCoroutine(float waitMin, float waitMax, int powerUpCount)
     {
         while (gameController.gameActive) {
-            SpawnPowerUps(powerUpCount);
             float waitTime = Random.Range(waitMin, waitMax);
             yield return new WaitForSeconds(waitTime);
+            SpawnPowerUps(powerUpCount);
         }
     }
 

@@ -29,8 +29,6 @@ public class GameOverScreen : MonoBehaviour
         // extract snake infofor display
         winnerName = snake.screenName;
         score = snake.pointCounter;
-        Color snakeColor = snake.GetComponent<SpriteRenderer>().color;
-        winnerText.color = snakeColor;
     }
 
 }

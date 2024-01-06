@@ -83,7 +83,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2609300385017154848}
-  m_Text: +1
+  m_Text: A
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 1
@@ -244,3 +244,4 @@ MonoBehaviour:
   points: 10
   textMesh: {fileID: 0}
   bonusPoints: 0
+  amy: 0

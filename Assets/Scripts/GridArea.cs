@@ -14,6 +14,7 @@ public class GridArea : MonoBehaviour
     void Start()
     {
         gameBounds = this.gameObject.GetComponent<BoxCollider2D>().bounds;
+        // Debug.Log($"xmin: {gameBounds.min.x}, xmax: {gameBounds.max.x}, ymin: {gameBounds.min.y}, ymax: {gameBounds.max.y}");
         snake = FindObjectOfType<Snake>();
         startPosition = snake.startPosition;
         InitializeOpenPositions();

@@ -35,17 +35,14 @@ public abstract class Snake : MonoBehaviour
     // snake isInvulnerable if int > 0;
     private int isInvulnerable = 0;
     private bool isDestroyer = false;
-    protected ColorManager colorManager;
-    private GameController gameController;
-    private GridArea gridArea;
+    [SerializeField] protected ColorManager colorManager;
+    [SerializeField] private GameController gameController;
+    [SerializeField] private GridArea gridArea;
 
     protected bool startBool;
 
     protected virtual void Awake()
     {
-        gameController = FindObjectOfType<GameController>();
-        gridArea = FindObjectOfType<GridArea>();
-        colorManager = FindAnyObjectByType<ColorManager>();
         startBool = true;
     }
 

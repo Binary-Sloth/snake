@@ -479,7 +479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9098039, g: 0.6854669, b: 0, a: 1}
+  m_Color: {r: 0.26142862, g: 0.25938943, b: 0.8207547, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -504,23 +504,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 86941263}
   m_CullTransparentMesh: 1
---- !u!1 &101727056 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2609300385017154848, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-  m_PrefabInstance: {fileID: 5267548635487891522}
-  m_PrefabAsset: {fileID: 0}
---- !u!210 &101727060
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 101727056}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_SortAtRoot: 0
 --- !u!1 &132743166
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,7 +829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &415749827
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1107,7 +1090,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f40d9d96bfb09c44a0428185691390c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameOverScreen: {fileID: 415749830}
+  startScreen: {fileID: 1689611338}
+  gameOverScreen: {fileID: 415749830}
+  gridArea: {fileID: 910468298}
+  powerUpSpawner: {fileID: 919025513}
+  letterSpawner: {fileID: 864512295}
+  initialFoodCount: 10
   gameActive: 0
 --- !u!1 &619394800
 GameObject:
@@ -1562,7 +1550,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Green snake won with 50 points!
+  m_text: You got 50 points!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
   m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
@@ -1571,8 +1559,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4293344022
-  m_fontColor: {r: 0.08627451, g: 0.23137257, b: 0.9058824, a: 1}
+    rgba: 4279104028
+  m_fontColor: {r: 0.10980393, g: 0.9490197, b: 0.050980397, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1668,8 +1656,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1184966370}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &864512295
@@ -1686,6 +1673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodPrefab: {fileID: 3321477106025207810, guid: ce047b45051adc84b849f94da8d37048, type: 3}
   gridArea: {fileID: 910468298}
+  colorManager: {fileID: 941468450}
 --- !u!1 &908780269
 GameObject:
   m_ObjectHideFlags: 0
@@ -2014,7 +2002,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodPrefab: {fileID: 0}
-  gridArea: {fileID: 0}
+  gridArea: {fileID: 910468298}
+  colorManager: {fileID: 941468450}
+  gameController: {fileID: 519420033}
 --- !u!1 &941468449
 GameObject:
   m_ObjectHideFlags: 0
@@ -2172,7 +2162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.93107563, g: 0.9433962, b: 0.022249907, a: 1}
+  m_Color: {r: 0.11370894, g: 0.9528302, b: 0.05842829, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2228,6 +2218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodPrefab: {fileID: 4217071891542596464, guid: 3c4b62fe2f149c645b15572cc6a5885f, type: 3}
   gridArea: {fileID: 910468298}
+  colorManager: {fileID: 941468450}
 --- !u!4 &1061691422
 Transform:
   m_ObjectHideFlags: 0
@@ -2611,11 +2602,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5583356039647704257, guid: dab8bc31c9e1f1a4cbb6f6317463a5ed, type: 3}
   m_PrefabInstance: {fileID: 8462309168004158080}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1184966370 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7160549727346939200, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-  m_PrefabInstance: {fileID: 5267548635487891522}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1201900177
 GameObject:
   m_ObjectHideFlags: 0
@@ -2804,6 +2790,7 @@ MonoBehaviour:
   currentWord: 
   wordBankString: 
   bonusPoints: 0
+  brickSpawner: {fileID: 1061691421}
 --- !u!4 &1250631042
 Transform:
   m_ObjectHideFlags: 0
@@ -3008,8 +2995,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Main Menu
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
-  m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: f629c6e43dba4bf38cb74d8860150664, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3124,6 +3111,10 @@ MonoBehaviour:
   pointPenalty: 0
   lifeCounter: 3
   screenName: Green
+  colorManager: {fileID: 941468450}
+  gameController: {fileID: 519420033}
+  gridArea: {fileID: 910468298}
+  wordManager: {fileID: 1250631041}
   floatingTextPrefab: {fileID: 4393477870126384723, guid: 6c99546bd2ee2904b85b55dfeda863b7, type: 3}
 --- !u!61 &1356212145
 BoxCollider2D:
@@ -3324,8 +3315,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Retry
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
-  m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: f629c6e43dba4bf38cb74d8860150664, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3820,7 +3811,6 @@ GameObject:
   - component: {fileID: 1689611334}
   - component: {fileID: 1689611337}
   - component: {fileID: 1689611336}
-  - component: {fileID: 1689611335}
   - component: {fileID: 1689611338}
   m_Layer: 5
   m_Name: Start screen
@@ -3828,7 +3818,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1689611334
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3849,22 +3839,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1689611335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1689611333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d32b5df281960f745b1e8f709a0cc84c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentScene: SnakeLetters
-  winnerText: {fileID: 0}
-  score: 0
-  snake: {fileID: 1356212143}
 --- !u!114 &1689611336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4498,86 +4472,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6884c07fb8c6fa94c9ed5e0a34ca02c5, type: 3}
---- !u!1001 &5267548635487891522
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 864512294}
-    m_Modifications:
-    - target: {fileID: 2609300385017154848, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3665842062555427160, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 8a2b9e2a607dd2143b58c44bc32410b4, type: 3}
-    - target: {fileID: 5843975935874897182, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      propertyPath: m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: 8a2b9e2a607dd2143b58c44bc32410b4, type: 3}
-    - target: {fileID: 5843975935874897182, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      propertyPath: m_Text
-      value: A
-      objectReference: {fileID: 0}
-    - target: {fileID: 7160549727346939200, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7160549727346939200, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7160549727346939200, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7160549727346939200, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7160549727346939200, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7160549727346939200, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7160549727346939200, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7160549727346939200, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7160549727346939200, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7160549727346939200, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7847229427395085385, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      propertyPath: m_Name
-      value: FoodLetter
-      objectReference: {fileID: 0}
-    - target: {fileID: 7847229427395085385, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2609300385017154848, guid: ce047b45051adc84b849f94da8d37048, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 101727060}
-  m_SourcePrefab: {fileID: 100100000, guid: ce047b45051adc84b849f94da8d37048, type: 3}
 --- !u!1001 &5649273960456484970
 PrefabInstance:
   m_ObjectHideFlags: 0

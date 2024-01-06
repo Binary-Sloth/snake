@@ -11,6 +11,7 @@ public class ColorManager : MonoBehaviour
     private Color cDestroyer;
     private Color cRefresh;
     private Color cSpawner;
+    private Color cSnake;
 
 
     void Start()
@@ -21,14 +22,22 @@ public class ColorManager : MonoBehaviour
         cDestroyer = Color.magenta;
         cRefresh = Color.cyan;
         cSpawner = Color.clear;
+        cSnake = new Color(0.114f, 0.953f, 0.058f, 1.000f);
+
     }
 
-    private IEnumerator ColorPulse(GameObject gameObject, Color altColour, float duration, int pulse, float delay = 0f, bool despawn = false)
+    private IEnumerator ColorPulse(GameObject gameObject, Color altColour, float duration, int pulse, float delay = 0f, bool despawn = false, bool isSnake = false)
     {
         SpriteRenderer sr = gameObject.GetComponent<SpriteRenderer>();
+        Color originColor;
 
         // save origin color
-        Color originColor = sr.color;
+        if (isSnake) {
+            originColor = cSnake;
+        }
+        else {
+            originColor = sr.color;
+        }
 
         yield return new WaitForSeconds(delay);
         // lerp animation with given duration in seconds
@@ -72,14 +81,13 @@ public class ColorManager : MonoBehaviour
             {
                 foreach (Transform transform in transforms) 
                 {
-                    sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
-
-                        try {
-                            sr.color = Color.Lerp(altColour, originColor , Mathf.PingPong(t * pulse * 2, 1));
-                        }
-                        catch(MissingReferenceException ex) {
-                            // continue ignore in case snake resets and gameObject is destroyed (for tail segments)
-                        }
+                    try {
+                        sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
+                        sr.color = Color.Lerp(altColour, originColor , Mathf.PingPong(t * pulse * 2, 1));
+                    }
+                    catch(MissingReferenceException ex) {
+                        // continue ignore in case snake resets and gameObject is destroyed (for tail segments)
+                    }
                 }
                 yield return null;
             }
@@ -92,9 +100,9 @@ public class ColorManager : MonoBehaviour
                 Destroy(transform.gameObject);
             }
             else {
-                sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
                 // restore origin color
                 try {
+                    sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
                     sr.color = originColor;
                 }
                 catch(MissingReferenceException ex) {
@@ -109,25 +117,31 @@ public class ColorManager : MonoBehaviour
 
     public void ColorPulseSuccess(GameObject gameObject)
     {
-        StartCoroutine(ColorPulse(gameObject, cSuccess, duration: 1f, pulse: 2));
+        StartCoroutine(ColorPulse(gameObject, cSuccess, duration: 1f, pulse: 2, isSnake: true));
     }
 
     public void ColorPulseFail(GameObject gameObject)
     {
-        StartCoroutine(ColorPulse(gameObject, cFail, duration: 1f, pulse: 2));
+        StartCoroutine(ColorPulse(gameObject, cFail, duration: 1f, pulse: 2, isSnake: true));
     }
 
     public void ColorPulseInvincible(List<Transform> transforms, float iduration = 10f)
     // snake highlight colouration in Invincible mode
     {
-        StartCoroutine(ColorPulse(transforms, cInvincible, iduration, pulse: (int)iduration));
+        float warningPulseTime = iduration * 0.2f;
+        float normalPulseTime = iduration - warningPulseTime;
+        StartCoroutine(ColorPulse(transforms, cInvincible, normalPulseTime, pulse: (int)normalPulseTime));
+        StartCoroutine(ColorPulse(transforms, cInvincible, warningPulseTime, pulse: (int)warningPulseTime * 2, delay: normalPulseTime));
+        
     }
 
     public void ColorPulseDestroyer(List<Transform> transforms, float iduration = 10f)
     // snake highlight colouration in Destroyer mode
     {
-        StartCoroutine(ColorPulse(transforms, cDestroyer, iduration, pulse: (int)iduration));
-        StartCoroutine(ColorPulse(transforms[0].gameObject, cDestroyer, iduration, pulse: (int)iduration));
+        float warningPulseTime = iduration * 0.2f;
+        float normalPulseTime = iduration - warningPulseTime;
+        StartCoroutine(ColorPulse(transforms, cDestroyer, normalPulseTime, pulse: (int)normalPulseTime));
+        StartCoroutine(ColorPulse(transforms, cDestroyer, warningPulseTime, pulse: (int)warningPulseTime * 3, delay: normalPulseTime));
     }
 
     public void ColorPulseRefresh(GameObject gameObject)

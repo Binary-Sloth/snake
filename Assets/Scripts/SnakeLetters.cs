@@ -7,14 +7,8 @@ using System.Security.Cryptography;
 
 public class SnakeLetters : Snake
 {
-    private WordManager wordManager;
+    [SerializeField] private WordManager wordManager;
     [SerializeField] private GameObject floatingTextPrefab;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        wordManager = FindAnyObjectByType<WordManager>();
-    }
 
     protected override void ResetState(bool colorEffect = true)
     {
