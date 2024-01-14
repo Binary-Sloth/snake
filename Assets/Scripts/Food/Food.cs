@@ -5,13 +5,15 @@ using UnityEngine;
 public class Food : MonoBehaviour
 {
     public int points = 10;
-    protected FoodSpawner foodSpawner;
-    protected ColorManager colorManager;
+    [SerializeField] protected FoodSpawner foodSpawner;
+    [SerializeField] protected ColorManager colorManager;
 
     protected virtual void Start()
     {
-        foodSpawner = GameObject.FindWithTag("LetterSpawner").GetComponent<FoodSpawner>();
-        colorManager = FindAnyObjectByType<ColorManager>();
+        if (!foodSpawner)
+            {foodSpawner = GameObject.FindWithTag("LetterSpawner").GetComponent<FoodSpawner>();}
+        if (!colorManager)
+            {colorManager = FindAnyObjectByType<ColorManager>().GetComponent<ColorManager>();}
     }
 
     // action when collision occurs

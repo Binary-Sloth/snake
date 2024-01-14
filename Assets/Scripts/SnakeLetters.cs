@@ -28,6 +28,7 @@ public class SnakeLetters : Snake
     // add food's letter to current word when it is 'eaten'
     {
         base.Grow(food);
+        this.GetComponent<AudioSource>().Play();
 
         if (food.gameObject.GetComponent<FoodLetter>() != null)
         {
@@ -38,7 +39,6 @@ public class SnakeLetters : Snake
             string letter = foodLetter.textMesh.text;
             segments[wordManager.currentWord.Length].gameObject.GetComponentInChildren<TextMesh>().text = letter;
         }
-
     }
 
     protected override Vector2Int GetInput()

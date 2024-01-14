@@ -44,6 +44,8 @@ public class GameController : MonoBehaviour
     public void GameOver() {
         gameActive = false;
         gameOverScreen.Setup();
+        this.GetComponent<AudioSource>().mute = true;
+        gameOverScreen.GetComponent<AudioSource>().Play();
     }
 
     void Update()

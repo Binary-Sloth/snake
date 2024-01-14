@@ -33,9 +33,10 @@ public class PowerUpSpawner : FoodSpawner
                 powerUpCount -= 1;
             }
 
-        else {
-            break;
-        }
+        this.GetComponent<AudioSource>().Play();
+        // else {
+        //     break;
+        // }
     }   
 
 

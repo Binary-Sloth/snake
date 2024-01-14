@@ -11,6 +11,7 @@ TagManager:
   - Wall
   - Highlight
   - FloatingText
+  - ColorManager
   layers:
   - Default
   - TransparentFX

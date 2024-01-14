@@ -10,7 +10,7 @@ public class WordManager : MonoBehaviour
 
     private List<string> wordBankList = new();
     public string wordBankString = "";
-    readonly string dictionaryPath = "Assets/Resources/Dictionaries";
+    readonly string dictionaryPath = Application.streamingAssetsPath + "/Dictionaries";
 
     public int bonusPoints;
     private int bonusPointCounter;
@@ -45,12 +45,20 @@ public class WordManager : MonoBehaviour
             // add word to wordBank
             wordBankList.Add(currentWord);
             wordBankString = $"{currentWord} \r\n{wordBankString}";
+
+            // play sound
+            this.GetComponent<AudioSource>().Play();
+
         }
         
         else {
             bonusPoints = 0;
             // spawn bricks if word does not exist in dictionary
-            // brickSpawner.SpawnFood(foodCount: currentWord.Length, colorEffect: true);
+            brickSpawner.SpawnFood(foodCount: currentWord.Length, colorEffect: true);
+            if (currentWord.Length > 0) {
+                brickSpawner.gameObject.GetComponent<AudioSource>().Play();
+                // Debug.Log(brickSpawner.gameObject.GetComponent<AudioSource>().clip);
+            }
         }
 
         // reset bonusPoints counter

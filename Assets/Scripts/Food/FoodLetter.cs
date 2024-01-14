@@ -19,10 +19,9 @@ public class FoodLetter : Food
     protected override void Start()
     {
         base.Start();
-        letterDataPath = "Assets/Resources/LetterValues.csv";
+        letterDataPath = Application.streamingAssetsPath + "/LetterValues.csv";
         textMesh = this.GetComponentInChildren<TextMesh>();
         GetRandomLetter(amy); // fix letter at start for Amy
-        Debug.Log(letterDataPath);
 
     }
 

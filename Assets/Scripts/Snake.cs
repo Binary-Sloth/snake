@@ -79,18 +79,18 @@ public abstract class Snake : MonoBehaviour
         // only allow y movement if snake is pointing in x direction
         if (direction.x != 0) 
         {
-            if (Input.GetKeyDown(KeyCode.W)) {
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
                 input = Vector2Int.up;
-            } else if (Input.GetKeyDown(KeyCode.S)) {
+            } else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) {
                 input = Vector2Int.down;
             }
         } 
         // only allow x movement if snake is pointing in y direction
         else if (direction.y != 0)
         {
-            if (Input.GetKeyDown(KeyCode.A)) {
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) {
                 input = Vector2Int.left;
-            } else if (Input.GetKeyDown(KeyCode.D)) {
+            } else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) {
                 input = Vector2Int.right;
             }
         }

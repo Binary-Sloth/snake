@@ -21,6 +21,7 @@ public class AddBricks : PowerUp
         int numOpenPositions = brickSpawner.gridArea.openPositions.Count;
         int numBricks = Mathf.Max(Mathf.RoundToInt(numOpenPositions * coverage), 1);
         brickSpawner.SpawnFood(numBricks, colorEffect: true);
+        brickSpawner.GetComponent<AudioSource>().Play();
         
         // destroy powerup
         base.OnTriggerEnter2D(other);

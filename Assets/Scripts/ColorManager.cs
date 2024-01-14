@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,7 +47,12 @@ public class ColorManager : MonoBehaviour
             try {
                 sr.color = Color.Lerp(altColour, originColor , Mathf.PingPong(t * pulse * 2, 1));
             }
-            catch(MissingReferenceException ex) {
+            catch(MissingReferenceException mEx) {
+                Debug.Log(mEx);
+                // continue ignore in case snake resets and gameObject disappears (for tail segments)
+            }
+            catch(NullReferenceException nEx) {
+                Debug.Log(nEx);
                 // continue ignore in case snake resets and gameObject disappears (for tail segments)
             }
             yield return null;
@@ -60,8 +66,13 @@ public class ColorManager : MonoBehaviour
             try {
                 sr.color = originColor;
             }
-            catch(MissingReferenceException ex) {
-                // ignore in case snake resets (for tail segments)
+            catch(MissingReferenceException mEx) {
+                Debug.Log(mEx);
+                // continue ignore in case snake resets and gameObject disappears (for tail segments)
+            }
+            catch(NullReferenceException nEx) {
+                Debug.Log(nEx);
+                // continue ignore in case snake resets and gameObject disappears (for tail segments)
             }
             yield return null;
         }
@@ -85,8 +96,13 @@ public class ColorManager : MonoBehaviour
                         sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
                         sr.color = Color.Lerp(altColour, originColor , Mathf.PingPong(t * pulse * 2, 1));
                     }
-                    catch(MissingReferenceException ex) {
-                        // continue ignore in case snake resets and gameObject is destroyed (for tail segments)
+                    catch(MissingReferenceException mEx) {
+                        Debug.Log(mEx);
+                        // continue ignore in case snake resets and gameObject disappears (for tail segments)
+                    }
+                    catch(NullReferenceException nEx) {
+                        Debug.Log(nEx);
+                        // continue ignore in case snake resets and gameObject disappears (for tail segments)
                     }
                 }
                 yield return null;
@@ -105,9 +121,14 @@ public class ColorManager : MonoBehaviour
                     sr = transform.GetChild(0).GetComponent<SpriteRenderer>();
                     sr.color = originColor;
                 }
-                catch(MissingReferenceException ex) {
-                    // ignore in case snake resets (for tail segments)
-                }
+            catch(MissingReferenceException mEx) {
+                Debug.Log(mEx);
+                // continue ignore in case snake resets and gameObject disappears (for tail segments)
+            }
+            catch(NullReferenceException nEx) {
+                Debug.Log(nEx);
+                // continue ignore in case snake resets and gameObject disappears (for tail segments)
+            }
             }
         }
         yield return null;
